@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あなたに合う副業タイプ診断</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF3E6;
+  --paper-deep:#F1E6D2;
+  --ink:#2E2620;
+  --ink-soft:#8A7A66;
+  --clay:#B5432A;
+  --clay-deep:#8F2F1B;
+  --gold:#D9A441;
+  --gold-deep:#B9832A;
+  --moss:#5C7048;
+  --card:#FFFDF9;
+  --radius:20px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{
+  font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;
+  margin:0;
+  line-height:1.5;
+}
+p{margin:0;}
+.wrap{max-width:640px;margin:0 auto;padding:0 22px 60px;}
+
+/* ---------- STORY HERO ---------- */
+.hero{
+  padding:24px 0 40px;
+  position:relative;
+}
+.page-label{
+  padding:26px 0 0;
+  text-align:center;
+}
+.page-label-badge{
+  display:inline-block;
+  font-family:"Zen Maru Gothic",sans-serif;
+  font-size:.74rem;font-weight:700;
+  color:var(--clay-deep);
+  background:#FDEEE6;
+  padding:5px 16px;
+  border-radius:999px;
+  margin-bottom:10px;
+}
+.page-label p{
+  font-size:.85rem;
+  color:var(--ink-soft);
+}
+.hero .mark{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--clay);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:.9rem;
+  margin-bottom:22px;
+}
+.hero p.story{
+  font-size:1.02rem;
+  color:var(--ink);
+  margin-bottom:14px;
+}
+.hero p.story.quiet{color:var(--ink-soft);font-size:.92rem;}
+.hero .divider{
+  width:38px;height:3px;background:var(--gold);
+  border-radius:2px;margin:26px 0;
+}
+.hero h1{
+  font-size:clamp(1.5rem,6vw,1.9rem);
+  font-weight:900;
+  margin:0 0 14px;
+}
+.hero .lead-sub{
+  color:var(--ink-soft);
+  font-size:.92rem;
+}
+
+/* ---------- QUIZ CARD ---------- */
+.quiz{
+  margin-top:10px;
+  background:var(--card);
+  border-radius:26px;
+  padding:30px 24px 26px;
+  box-shadow:0 3px 0 rgba(46,38,32,0.06), 0 14px 30px rgba(46,38,32,0.07);
+  border:1px solid rgba(46,38,32,0.06);
+}
+.quiz .q-label{
+  font-family:"Zen Maru Gothic",sans-serif;
+  font-size:.78rem;font-weight:700;
+  color:var(--clay-deep);
+  letter-spacing:.02em;
+  margin-bottom:10px;
+  display:block;
+}
+.quiz h2{
+  font-size:1.28rem;
+  margin-bottom:8px;
+}
+.quiz-sub{
+  font-size:.9rem;
+  color:var(--ink-soft);
+  margin-bottom:22px;
+}
+.options{display:flex;flex-direction:column;gap:12px;}
+.opt{
+  text-align:left;
+  border:1.5px solid var(--paper-deep);
+  background:var(--paper);
+  border-radius:16px;
+  padding:16px 18px;
+  font-family:inherit;
+  font-size:.94rem;
+  color:var(--ink);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  transition:border-color .15s ease, background .15s ease, transform .1s ease;
+}
+.opt .dot{
+  flex:0 0 auto;
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid var(--ink-soft);
+  opacity:.5;
+}
+.opt:hover{border-color:var(--gold);}
+.opt:active{transform:scale(0.99);}
+.opt.selected{
+  border-color:var(--clay);
+  background:#FFF7EE;
+}
+.opt.selected .dot{
+  border-color:var(--clay);
+  background:var(--clay);
+  opacity:1;
+}
+
+/* ---------- RESULT ---------- */
+.result{
+  margin-top:26px;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .5s ease;
+}
+.result.open{max-height:2000px;}
+.result-inner{
+  background:linear-gradient(160deg, #FFF8EF 0%, #FDF0E4 100%);
+  border-radius:24px;
+  padding:28px 22px 26px;
+  border:1px solid rgba(181,67,42,0.12);
+}
+.result-inner .tag{
+  display:inline-block;
+  font-family:"Zen Maru Gothic",sans-serif;
+  font-size:.72rem;font-weight:700;
+  background:var(--clay);
+  color:#fff;
+  padding:5px 14px;
+  border-radius:999px;
+  margin-bottom:14px;
+}
+.result-inner h3{
+  font-size:1.35rem;
+  margin-bottom:16px;
+}
+.result-inner p{
+  font-size:.95rem;
+  color:var(--ink);
+  margin-bottom:12px;
+}
+.result-inner p:last-of-type{margin-bottom:0;}
+
+/* ---------- BRIDGE CTA ---------- */
+.bridge{
+  margin-top:22px;
+  padding-top:22px;
+  border-top:1px dashed rgba(46,38,32,0.15);
+}
+.bridge p{
+  font-size:.95rem;
+  color:var(--ink);
+  margin-bottom:12px;
+}
+.bridge .book-name{
+  font-weight:700;
+  color:var(--clay-deep);
+}
+.bridge .urgency{
+  font-size:.82rem;
+  color:var(--ink-soft);
+  margin-top:16px;
+}
+.cta-btn-wrap{margin-top:20px;text-align:center;}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
+  background:linear-gradient(135deg, var(--clay), var(--clay-deep));
+  color:#fff;font-weight:900;font-size:.98rem;
+  padding:16px 32px;border-radius:999px;
+  box-shadow:0 5px 0 var(--clay-deep), 0 12px 26px rgba(181,67,42,0.28);
+}
+.cta-hint{
+  display:block;margin-top:12px;font-size:.74rem;font-weight:700;color:var(--ink-soft);
+}
+
+/* retry */
+.retry-wrap{text-align:center;margin-top:18px;}
+.retry{
+  background:none;border:none;
+  color:var(--ink-soft);
+  font-size:.82rem;
+  text-decoration:underline;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+footer{
+  text-align:center;color:var(--ink-soft);font-size:.74rem;
+  padding:30px 0 10px;
+}
+
+@media (max-width:480px){
+  .wrap{padding:0 16px 50px;}
+  .quiz{padding:24px 18px 22px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-label">
+    <span class="page-label-badge">診断特典</span>
+    <p>あなたに合う副業を診断できる、無料の診断コンテンツです</p>
+  </div>
+
+  <section class="hero">
+    <div class="mark">🔧</div>
+    <p class="story">体が動かなくなったら、収入が止まる。</p>
+    <p class="story">去年、僕はそれを痛いほど知りました。</p>
+    <p class="story">肩を繰り返し脱臼して、手術することになりました。</p>
+    <p class="story quiet">手術のあと3ヶ月間の休業。1年間のリハビリ生活。現場に戻ってもまともに動けず、職場ではお荷物のような扱いに。</p>
+    <p class="story quiet">傷病手当は出ましたが、もらえるのは給料の約6割ほど。「このままどうなるんだろう」そんなことばかり考えていました。</p>
+    <p class="story">「副業なんて難しそう」「工具しか触ったことがない」ずっとそう思っていました。</p>
+    <p class="story">でも、また同じことが起きたとき、僕はきっと何もできない。それが怖くて、現場仕事以外でもできる収入の作り方を、一から学び始めました。</p>
+
+    <div class="divider"></div>
+
+    <h1>現場一筋だった自分にも、できることがありました。</h1>
+    <p class="lead-sub">きっと、あなたにもあります。</p>
+  </section>
+
+  <section class="quiz" id="quiz">
+    <span class="q-label">30秒診断</span>
+    <h2 class="quiz-title">あなたに合う副業タイプ診断</h2>
+    <p class="quiz-sub">今の自分に、一番近いものを選んでください。</p>
+    <div class="options" id="options">
+      <button class="opt" data-type="A"><span class="dot"></span>文章を書くのは、そんなに苦じゃない</button>
+      <button class="opt" data-type="B"><span class="dot"></span>絵や画像を見るのも、作るのも好き</button>
+      <button class="opt" data-type="C"><span class="dot"></span>人と話したり、発信したりするのが好き</button>
+      <button class="opt" data-type="D"><span class="dot"></span>とにかく時間がない。仕事だけで精一杯</button>
+      <button class="opt" data-type="E"><span class="dot"></span>正直、自分に何が向いてるか分からない</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="result-inner" id="result-inner"></div>
+    </div>
+  </section>
+
+  <div class="retry-wrap" id="retry-wrap" style="display:none;">
+    <button class="retry" onclick="resetQuiz()">もう一度診断する</button>
+  </div>
+
+  <footer>AIマネタイズ診断 ／ 個人利用の学習用資料です</footer>
+</div>
+
+<script>
+const results = {
+  A: {
+    tag: "文章タイプ",
+    title: "あなたは「文章タイプ」です。",
+    body: [
+      "文章を書くのが苦じゃない人は、AIマネタイズの中でも一番、再現性が高いと言われています。",
+      "現場仕事しかしてこなかった僕も、最初は「文章なんて書けない」と思っていました。",
+      "でも今は、それが収入の柱の一つになっています。"
+    ],
+    bridge: "具体的に何をどう書けばいいか、僕がAIで学んできたことを全部まとめた"
+  },
+  B: {
+    tag: "クリエイタータイプ",
+    title: "あなたは「クリエイタータイプ」です。",
+    body: [
+      "絵や画像に興味がある人は、AIとの相性がとても良いです。",
+      "僕自身、デザインなんて一切やったことがなかったですが、AIを使えば道具さえ触ったことのない人でも形にできます。"
+    ],
+    bridge: "具体的に何をどう作ればいいか、僕がAIで学んできたことを全部まとめた"
+  },
+  C: {
+    tag: "発信タイプ",
+    title: "あなたは「発信タイプ」です。",
+    body: [
+      "人と話したり、発信したりするのが好きな人は、SNSでのマネタイズにかなり向いています。",
+      "僕も最初はSNSなんて未経験でしたが、そこから収入の柱を作ることができました。"
+    ],
+    bridge: "具体的にどう発信していけばいいか、僕がAIで学んできたことを全部まとめた"
+  },
+  D: {
+    tag: "時短タイプ",
+    title: "あなたは「時短タイプ」です。",
+    body: [
+      "時間がない。それ、僕も同じでした。",
+      "現場から帰って、それでも学ぶ時間を作るのは正直しんどかったです。",
+      "でも今は、AIが代わりにやってくれる部分がたくさんあります。"
+    ],
+    bridge: "忙しいあなたでも続けられる方法を、僕がAIで学んできたことを全部まとめた"
+  },
+  E: {
+    tag: "これから見つけるタイプ",
+    title: "あなたは「これから見つけるタイプ」です。",
+    body: [
+      "大丈夫です。僕も最初は、それすら分かりませんでした。",
+      "「工具しか触ったことがない」そう思っていた自分にも、見つけられました。"
+    ],
+    bridge: "まずは何から始めればいいか、僕がAIで学んできたことを全部まとめた"
+  }
+};
+
+const optionsEl = document.getElementById('options');
+const resultEl = document.getElementById('result');
+const resultInner = document.getElementById('result-inner');
+const retryWrap = document.getElementById('retry-wrap');
+
+optionsEl.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.opt');
+  if(!btn) return;
+
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const type = btn.dataset.type;
+  const r = results[type];
+
+  resultInner.innerHTML = `
+    <span class="tag">${r.tag}</span>
+    <h3>${r.title}</h3>
+    ${r.body.map(p=>`<p>${p}</p>`).join('')}
+    <div class="bridge">
+      <p>${r.bridge}<br><span class="book-name">『AIマネタイズの教科書』</span>という資料があります。そこで詳しくお伝えしています。</p>
+      <p class="urgency">こちら、期間限定で配布しています。定員に達し次第、予告なく配布を終了しますので、気になる方はお早めにどうぞ。</p>
+      <div class="cta-btn-wrap">
+        <a class="cta-btn" href="https://utage-system.com/line/open/uukg47XG0D5R?mtid=QsEsgLz7iTzH" target="_blank" rel="noopener noreferrer">🎁 AIマネタイズの教科書はこちら</a>
+        <span class="cta-hint">▲ タップして受け取る ▲</span>
+      </div>
+    </div>
+  `;
+
+  resultEl.classList.add('open');
+  retryWrap.style.display = 'block';
+
+  setTimeout(()=>{
+    resultEl.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 150);
+});
+
+function resetQuiz(){
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  resultEl.classList.remove('open');
+  retryWrap.style.display = 'none';
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth', block:'start'});
+}
+</script>
+</body>
+</html>
