@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>止まらずに進める方法</title>
+<style>
+:root{
+  --bg:#faf7f0;
+  --fg:#1c1a16;
+  --muted:#6f685c;
+  --gold:#c9a24b;
+  --card:#ffffff;
+  --line:#e8e0cf;
+  --line-green:#06c755;
+  --line-green-dark:#05a948;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14120f;
+    --fg:#f4efe4;
+    --muted:#b2aa9a;
+    --gold:#d8b45e;
+    --card:#1e1b16;
+    --line:#352f25;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  line-height:1.8;
+}
+main{max-width:640px;margin:0 auto;padding:36px 16px 56px}
+.eyebrow{
+  display:inline-block;
+  font-size:.78rem;
+  letter-spacing:.08em;
+  color:var(--gold);
+  border:1px solid var(--gold);
+  border-radius:999px;
+  padding:2px 12px;
+  margin-bottom:14px;
+}
+h1{
+  font-size:1.55rem;
+  line-height:1.5;
+  margin:0 0 10px;
+  font-weight:800;
+}
+h1 span{
+  background:linear-gradient(transparent 62%, rgba(201,162,75,.45) 62%);
+}
+.lead{margin:0 0 22px;color:var(--muted);font-size:.95rem}
+.video{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:14px;
+  overflow:hidden;
+  background:#000;
+  border:1px solid var(--line);
+}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.placeholder{
+  position:absolute;inset:0;
+  display:none;
+  align-items:center;justify-content:center;
+  color:#d9d3c6;
+  font-size:.95rem;
+  text-align:center;
+  padding:16px;
+}
+.video.is-empty iframe{display:none}
+.video.is-empty .placeholder{display:flex}
+.hint{margin:10px 0 0;font-size:.82rem;color:var(--muted);text-align:center}
+.cta{
+  margin-top:28px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px 18px 20px;
+  text-align:center;
+}
+.cta p{margin:0 0 14px}
+.cta .big{font-weight:700;font-size:1.05rem}
+.btn{
+  display:block;
+  background:var(--line-green);
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-size:1.05rem;
+  padding:16px 12px;
+  border-radius:999px;
+  box-shadow:0 4px 0 var(--line-green-dark);
+}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--line-green-dark)}
+.note{margin:24px 0 0;font-size:.8rem;color:var(--muted)}
+.alt[hidden]{display:none}
+.alt{
+  display:block;
+  margin-top:16px;
+  text-align:center;
+  font-size:.82rem;
+  color:var(--muted);
+}
+</style>
+</head>
+<body>
+<main>
+  <span class="eyebrow">動画でお話しします</span>
+  <h1>本業がある人が、<br><span>止まらずに進める方法</span></h1>
+  <p class="lead">5〜6分の動画です。最後まで見てください。</p>
+
+  <div class="video" id="video">
+    <iframe id="player"
+      title="止まらずに進める方法"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="placeholder">動画は準備中です。<br>もう少しお待ちください。</div>
+  </div>
+  <p class="hint">スマホは、横向き・全画面にすると見やすいです。</p>
+
+  <section class="cta">
+    <p class="big">動画を見終わったら、下のボタンから。</p>
+    <a class="btn" id="lineBtn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener">LINEで教科書を受け取る</a>
+    <p class="note">受け取った「AIマネタイズの教科書」の中から、<br>無料のサポート会を予約できます。</p>
+  </section>
+
+  <a class="alt" id="ytLink" href="#" target="_blank" rel="noopener" hidden>動画が表示されない場合は、こちら(YouTubeで見る)</a>
+</main>
+
+<script>
+/* ▼ ここだけ書き換えます ▼
+   YouTubeの動画URLが https://youtu.be/AbCdEfGhIJk なら、
+   「AbCdEfGhIJk」の部分(11文字)を入れてください。 */
+var VIDEO_ID = "ここに動画のIDを入れる";
+/* ▲ ここだけ書き換えます ▲ */
+
+(function () {
+  var box = document.getElementById("video");
+  var player = document.getElementById("player");
+  var yt = document.getElementById("ytLink");
+  var ok = /^[A-Za-z0-9_-]{11}$/.test(VIDEO_ID);
+  if (ok) {
+    player.src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID + "?rel=0&playsinline=1&modestbranding=1";
+    yt.href = "https://www.youtube.com/watch?v=" + VIDEO_ID;
+    yt.hidden = false;
+  } else {
+    box.classList.add("is-empty");
+  }
+})();
+</script>
+</body>
+</html>
