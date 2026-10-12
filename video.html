@@ -149,9 +149,30 @@ var VIDEO_ID = "VTwTClDVMFE";
   var yt = document.getElementById("ytLink");
   var ok = /^[A-Za-z0-9_-]{11}$/.test(VIDEO_ID);
   if (ok) {
-    player.src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID + "?rel=0&playsinline=1&modestbranding=1";
+    player.src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID +
+      "?rel=0&playsinline=1&modestbranding=1&cc_load_policy=0&enablejsapi=1&origin=" +
+      encodeURIComponent(location.origin);
     yt.href = "https://www.youtube.com/watch?v=" + VIDEO_ID;
     yt.hidden = false;
+
+    /* 動画にはテロップが入っているので、YouTubeの自動字幕は消す */
+    var hideCaptions = function (p) {
+      try { p.unloadModule("captions"); } catch (e) {}
+      try { p.unloadModule("cc"); } catch (e) {}
+    };
+    window.onYouTubeIframeAPIReady = function () {
+      new YT.Player("player", {
+        events: {
+          onReady: function (e) { hideCaptions(e.target); },
+          onStateChange: function (e) {
+            if (e.data === 1 || e.data === 3) { hideCaptions(e.target); }
+          }
+        }
+      });
+    };
+    var s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
   } else {
     box.classList.add("is-empty");
   }
