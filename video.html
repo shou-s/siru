@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>止まらずに進める方法</title>
 <style>
 :root{
@@ -102,6 +103,15 @@ h1 span{
 .btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--line-green-dark)}
 .note{margin:24px 0 0;font-size:.8rem;color:var(--muted)}
 .alt[hidden]{display:none}
+.alt.is-strong{
+  padding:12px 16px;
+  border:1.5px solid var(--gold);
+  border-radius:999px;
+  color:var(--fg);
+  font-size:.9rem;
+  font-weight:700;
+  text-decoration:none;
+}
 .alt{
   display:block;
   margin-top:16px;
@@ -149,9 +159,19 @@ var VIDEO_ID = "VTwTClDVMFE";
   var yt = document.getElementById("ytLink");
   var ok = /^[A-Za-z0-9_-]{11}$/.test(VIDEO_ID);
   if (ok) {
-    player.src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID +
-      "?rel=0&playsinline=1&modestbranding=1&cc_load_policy=0&enablejsapi=1&origin=" +
-      encodeURIComponent(location.origin);
+    /* 動画が出ない端末（InstagramのアプリのブラウザなどでYouTubeがエラー153を出す場合）に備えて、
+       ①まずyoutube-nocookie、②だめならyoutube.com、③それでもだめなら「YouTubeで見る」ボタンを目立たせる */
+    var hosts = ["https://www.youtube-nocookie.com", "https://www.youtube.com"];
+    var tryIndex = 0;
+    var ready = false;
+    var buildSrc = function (host) {
+      return host + "/embed/" + VIDEO_ID +
+        "?rel=0&playsinline=1&modestbranding=1&cc_load_policy=0&enablejsapi=1&origin=" +
+        encodeURIComponent(location.origin);
+    };
+    var showFallback = function () { yt.classList.add("is-strong"); };
+
+    player.src = buildSrc(hosts[tryIndex]);
     yt.href = "https://www.youtube.com/watch?v=" + VIDEO_ID;
     yt.hidden = false;
 
@@ -160,19 +180,36 @@ var VIDEO_ID = "VTwTClDVMFE";
       try { p.unloadModule("captions"); } catch (e) {}
       try { p.unloadModule("cc"); } catch (e) {}
     };
-    window.onYouTubeIframeAPIReady = function () {
+    var attach = function () {
+      if (!(window.YT && YT.Player)) { return; }
       new YT.Player("player", {
         events: {
-          onReady: function (e) { hideCaptions(e.target); },
+          onReady: function (e) { ready = true; hideCaptions(e.target); },
           onStateChange: function (e) {
             if (e.data === 1 || e.data === 3) { hideCaptions(e.target); }
-          }
+          },
+          onError: function () { nextHost(); }
         }
       });
     };
+    var nextHost = function () {
+      tryIndex += 1;
+      if (tryIndex < hosts.length) {
+        var old = document.getElementById("player");
+        var fresh = old.cloneNode(false);
+        fresh.src = buildSrc(hosts[tryIndex]);
+        old.parentNode.replaceChild(fresh, old);
+        attach();
+      } else {
+        showFallback();
+      }
+    };
+    window.onYouTubeIframeAPIReady = attach;
     var s = document.createElement("script");
     s.src = "https://www.youtube.com/iframe_api";
+    s.onerror = showFallback;
     document.head.appendChild(s);
+    setTimeout(function () { if (!ready) { showFallback(); } }, 8000);
   } else {
     box.classList.add("is-empty");
   }
