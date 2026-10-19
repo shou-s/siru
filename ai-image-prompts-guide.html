@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>AI画像プロンプト50選 活用ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --ink: #1C1C1E;
+  --muted: #5F6064;
+  --line: #E3E3E6;
+  --soft: #F6F6F7;
+  --accent: #067A3A;
+  --line-green: #06C755;
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #161618; --ink: #EDEDEF; --muted: #A4A5AA; --line: #34353A; --soft: #202124; --accent: #3DCB7A; }
+}
+:root[data-theme="dark"] { --bg: #161618; --ink: #EDEDEF; --muted: #A4A5AA; --line: #34353A; --soft: #202124; --accent: #3DCB7A; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font); font-size: 16px; line-height: 1.85; letter-spacing: .02em;
+  line-break: strict; word-break: auto-phrase; overflow-wrap: anywhere;
+}
+main { max-width: 760px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(56px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+h1 { font-size: clamp(24px, 6vw, 32px); line-height: 1.45; margin: 0 0 8px; padding-bottom: 14px; border-bottom: 3px solid var(--accent); }
+h2 { font-size: clamp(20px, 5vw, 24px); line-height: 1.5; margin: 52px 0 14px; padding-left: 12px; border-left: 4px solid var(--accent); }
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 16px; padding-left: 1.5em; }
+li { margin: 0 0 8px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .95em; }
+
+table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14.5px; line-height: 1.65; }
+th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
+thead th { background: var(--soft); font-weight: 700; font-size: 13.5px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+td.no { color: var(--muted); white-space: nowrap; width: 3em; }
+td.pr code { font-weight: 700; word-break: normal; overflow-wrap: anywhere; }
+td.cp { width: 1%; text-align: right; white-space: nowrap; }
+
+.btn-copy { font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--bg); border: 1px solid var(--accent); border-radius: 6px; padding: 4px 10px; cursor: pointer; white-space: nowrap; min-width: 4.5em; }
+.btn-copy.done { color: #fff; background: var(--accent); }
+.btn-all { display: block; width: 100%; font-family: inherit; font-size: 15px; font-weight: 700; color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 12px; margin: 0 0 14px; cursor: pointer; }
+.btn-all.done { opacity: .85; }
+.btn-line { display: block; width: 100%; max-width: 420px; margin: 20px auto 0; text-align: center; text-decoration: none; background: var(--line-green); color: #fff; border-radius: 999px; padding: 15px 12px; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+
+/* スマホでは、表を1行ずつのまとまりにする */
+@media (max-width: 600px) {
+  table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  table.stack, table.stack tbody, table.stack tr, table.stack td { display: block; width: auto; }
+  table.stack tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+  table.stack td { border: 0; padding: 2px 0; }
+  table.stack td[data-label]::before { content: attr(data-label) "："; color: var(--muted); font-size: 12.5px; }
+  table.stack td.lead::before { content: none; }
+  table.stack td.lead { font-weight: 700; }
+  /* 50選は「No. プロンプト　コピー」を1行目に */
+  table.p50 tr { display: grid; grid-template-columns: auto 1fr auto; column-gap: 8px; align-items: center; }
+  table.p50 td.no { grid-column: 1; width: auto; }
+  table.p50 td.pr { grid-column: 2; }
+  table.p50 td.cp { grid-column: 3; grid-row: 1; width: auto; }
+  table.p50 td.ds, table.p50 td.us { grid-column: 1 / -1; }
+  table.p50 td.no::before, table.p50 td.pr::before { content: none; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<h1>AI画像プロンプト50選 活用ガイド</h1>
+
+<h2>はじめに</h2>
+<p>このガイドは、ChatGPTで画像を作るプロンプト50個と、その画像をお仕事に使う流れをまとめたものです。</p>
+<ul>
+  <li>プロンプト50選：打つだけで雰囲気が変わる言葉を、日本語の意味つきで並べました</li>
+  <li>活用先：SNS投稿、広告バナー、商品イメージ、LP、YouTubeのサムネイルなど、画像が使われる場面を紹介します</li>
+  <li>案件の流れ：クラウドワークスで募集を探し、応募して、報酬を受け取るまでを順番に説明します</li>
+  <li>現実と注意点：単価の目安、競争の状況、気をつけたいルールも正直に書きました</li>
+</ul>
+<p>収益が出ることを約束するものではありません。最初は小さな案件から、というのが現実です。その前提で読んでください。</p>
+
+<h2>プロンプト50選</h2>
+<p>ChatGPTに打つと、下の日本語のような雰囲気の画像になります。同じプロンプトでも、出てくる画像は毎回少しずつ変わります。</p>
+<button type="button" class="btn-all" id="copyAll">50個まとめてコピー</button>
+<table class="stack p50">
+  <thead><tr><th>No.</th><th>プロンプト</th><th>どんな画像になるか</th><th>向いている用途</th><th><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">コピー</span></th></tr></thead>
+  <tbody>
+    <tr><td class="no" data-label="No.">1</td><td class="pr" data-label="プロンプト"><code>/magazine cover</code></td><td class="ds" data-label="どんな画像になるか">雑誌の表紙のような画像に</td><td class="us" data-label="向いている用途">SNS・ブログ</td><td class="cp"><button type="button" class="btn-copy" data-text="/magazine cover" aria-label="/magazine cover をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">2</td><td class="pr" data-label="プロンプト"><code>/product explosion</code></td><td class="ds" data-label="どんな画像になるか">商品が爆発したように弾け飛ぶ画像に</td><td class="us" data-label="向いている用途">商品イメージ・広告</td><td class="cp"><button type="button" class="btn-copy" data-text="/product explosion" aria-label="/product explosion をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">3</td><td class="pr" data-label="プロンプト"><code>/movie poster</code></td><td class="ds" data-label="どんな画像になるか">映画のポスターのような画像に</td><td class="us" data-label="向いている用途">SNS・サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/movie poster" aria-label="/movie poster をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">4</td><td class="pr" data-label="プロンプト"><code>/album cover</code></td><td class="ds" data-label="どんな画像になるか">音楽アルバムのジャケットのような画像に</td><td class="us" data-label="向いている用途">SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/album cover" aria-label="/album cover をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">5</td><td class="pr" data-label="プロンプト"><code>/perfume advertisement</code></td><td class="ds" data-label="どんな画像になるか">香水の広告のような画像に</td><td class="us" data-label="向いている用途">広告バナー</td><td class="cp"><button type="button" class="btn-copy" data-text="/perfume advertisement" aria-label="/perfume advertisement をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">6</td><td class="pr" data-label="プロンプト"><code>/watch advertisement</code></td><td class="ds" data-label="どんな画像になるか">腕時計の広告のような画像に</td><td class="us" data-label="向いている用途">広告バナー</td><td class="cp"><button type="button" class="btn-copy" data-text="/watch advertisement" aria-label="/watch advertisement をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">7</td><td class="pr" data-label="プロンプト"><code>/car advertisement</code></td><td class="ds" data-label="どんな画像になるか">車の広告のような画像に</td><td class="us" data-label="向いている用途">広告バナー</td><td class="cp"><button type="button" class="btn-copy" data-text="/car advertisement" aria-label="/car advertisement をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">8</td><td class="pr" data-label="プロンプト"><code>/food advertisement</code></td><td class="ds" data-label="どんな画像になるか">食べ物の広告のような、おいしそうな画像に</td><td class="us" data-label="向いている用途">広告・飲食店</td><td class="cp"><button type="button" class="btn-copy" data-text="/food advertisement" aria-label="/food advertisement をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">9</td><td class="pr" data-label="プロンプト"><code>/product flatlay</code></td><td class="ds" data-label="どんな画像になるか">商品を真上から並べて撮った画像に</td><td class="us" data-label="向いている用途">商品イメージ</td><td class="cp"><button type="button" class="btn-copy" data-text="/product flatlay" aria-label="/product flatlay をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">10</td><td class="pr" data-label="プロンプト"><code>/product macro</code></td><td class="ds" data-label="どんな画像になるか">商品の細部を超アップで撮った画像に</td><td class="us" data-label="向いている用途">商品イメージ</td><td class="cp"><button type="button" class="btn-copy" data-text="/product macro" aria-label="/product macro をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">11</td><td class="pr" data-label="プロンプト"><code>/cinematic portrait</code></td><td class="ds" data-label="どんな画像になるか">映画のワンシーンのような人物写真に</td><td class="us" data-label="向いている用途">LP・サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/cinematic portrait" aria-label="/cinematic portrait をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">12</td><td class="pr" data-label="プロンプト"><code>/villain portrait</code></td><td class="ds" data-label="どんな画像になるか">悪役のような迫力ある人物画像に</td><td class="us" data-label="向いている用途">サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/villain portrait" aria-label="/villain portrait をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">13</td><td class="pr" data-label="プロンプト"><code>/surreal portrait</code></td><td class="ds" data-label="どんな画像になるか">現実離れした不思議な人物画像に</td><td class="us" data-label="向いている用途">ブログ・SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/surreal portrait" aria-label="/surreal portrait をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">14</td><td class="pr" data-label="プロンプト"><code>/double exposure</code></td><td class="ds" data-label="どんな画像になるか">二枚の写真が重なったような画像に</td><td class="us" data-label="向いている用途">SNS・ブログ</td><td class="cp"><button type="button" class="btn-copy" data-text="/double exposure" aria-label="/double exposure をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">15</td><td class="pr" data-label="プロンプト"><code>/wedding photography</code></td><td class="ds" data-label="どんな画像になるか">結婚式の写真のような画像に</td><td class="us" data-label="向いている用途">イベント・LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/wedding photography" aria-label="/wedding photography をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">16</td><td class="pr" data-label="プロンプト"><code>/street photography</code></td><td class="ds" data-label="どんな画像になるか">街角のスナップ写真のような画像に</td><td class="us" data-label="向いている用途">SNS・ブログ</td><td class="cp"><button type="button" class="btn-copy" data-text="/street photography" aria-label="/street photography をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">17</td><td class="pr" data-label="プロンプト"><code>/architecture photography</code></td><td class="ds" data-label="どんな画像になるか">建築写真のような画像に</td><td class="us" data-label="向いている用途">LP・不動産</td><td class="cp"><button type="button" class="btn-copy" data-text="/architecture photography" aria-label="/architecture photography をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">18</td><td class="pr" data-label="プロンプト"><code>/interior design</code></td><td class="ds" data-label="どんな画像になるか">おしゃれなインテリアの部屋の画像に</td><td class="us" data-label="向いている用途">LP・不動産</td><td class="cp"><button type="button" class="btn-copy" data-text="/interior design" aria-label="/interior design をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">19</td><td class="pr" data-label="プロンプト"><code>/character poster</code></td><td class="ds" data-label="どんな画像になるか">キャラクターのポスターのような画像に</td><td class="us" data-label="向いている用途">ゲーム・電子書籍</td><td class="cp"><button type="button" class="btn-copy" data-text="/character poster" aria-label="/character poster をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">20</td><td class="pr" data-label="プロンプト"><code>/creature design</code></td><td class="ds" data-label="どんな画像になるか">空想の生き物のデザイン画に</td><td class="us" data-label="向いている用途">ゲーム素材</td><td class="cp"><button type="button" class="btn-copy" data-text="/creature design" aria-label="/creature design をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">21</td><td class="pr" data-label="プロンプト"><code>/robot design</code></td><td class="ds" data-label="どんな画像になるか">ロボットのデザイン画に</td><td class="us" data-label="向いている用途">ゲーム素材</td><td class="cp"><button type="button" class="btn-copy" data-text="/robot design" aria-label="/robot design をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">22</td><td class="pr" data-label="プロンプト"><code>/vehicle concept</code></td><td class="ds" data-label="どんな画像になるか">未来の乗り物のデザイン画に</td><td class="us" data-label="向いている用途">ゲーム素材</td><td class="cp"><button type="button" class="btn-copy" data-text="/vehicle concept" aria-label="/vehicle concept をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">23</td><td class="pr" data-label="プロンプト"><code>/superhero scene</code></td><td class="ds" data-label="どんな画像になるか">ヒーロー映画のような場面に</td><td class="us" data-label="向いている用途">サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/superhero scene" aria-label="/superhero scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">24</td><td class="pr" data-label="プロンプト"><code>/action scene</code></td><td class="ds" data-label="どんな画像になるか">アクション映画のような迫力ある場面に</td><td class="us" data-label="向いている用途">サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/action scene" aria-label="/action scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">25</td><td class="pr" data-label="プロンプト"><code>/horror scene</code></td><td class="ds" data-label="どんな画像になるか">ホラー映画のような不気味な場面に</td><td class="us" data-label="向いている用途">サムネ・表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/horror scene" aria-label="/horror scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">26</td><td class="pr" data-label="プロンプト"><code>/romantic scene</code></td><td class="ds" data-label="どんな画像になるか">恋愛映画のようなロマンチックな場面に</td><td class="us" data-label="向いている用途">電子書籍の表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/romantic scene" aria-label="/romantic scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">27</td><td class="pr" data-label="プロンプト"><code>/cyberpunk city</code></td><td class="ds" data-label="どんな画像になるか">ネオンが光るサイバーパンクな街に</td><td class="us" data-label="向いている用途">LP・表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/cyberpunk city" aria-label="/cyberpunk city をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">28</td><td class="pr" data-label="プロンプト"><code>/post apocalyptic</code></td><td class="ds" data-label="どんな画像になるか">文明が崩壊した後の世界のような画像に</td><td class="us" data-label="向いている用途">表紙・ゲーム</td><td class="cp"><button type="button" class="btn-copy" data-text="/post apocalyptic" aria-label="/post apocalyptic をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">29</td><td class="pr" data-label="プロンプト"><code>/medieval village</code></td><td class="ds" data-label="どんな画像になるか">中世ヨーロッパの村のような画像に</td><td class="us" data-label="向いている用途">ゲーム・表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/medieval village" aria-label="/medieval village をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">30</td><td class="pr" data-label="プロンプト"><code>/ancient temple</code></td><td class="ds" data-label="どんな画像になるか">古代の神殿のような画像に</td><td class="us" data-label="向いている用途">ゲーム・LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/ancient temple" aria-label="/ancient temple をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">31</td><td class="pr" data-label="プロンプト"><code>/fantasy castle</code></td><td class="ds" data-label="どんな画像になるか">ファンタジー世界のお城の画像に</td><td class="us" data-label="向いている用途">表紙・ゲーム</td><td class="cp"><button type="button" class="btn-copy" data-text="/fantasy castle" aria-label="/fantasy castle をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">32</td><td class="pr" data-label="プロンプト"><code>/underwater city</code></td><td class="ds" data-label="どんな画像になるか">海の底にある都市の画像に</td><td class="us" data-label="向いている用途">ゲーム・LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/underwater city" aria-label="/underwater city をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">33</td><td class="pr" data-label="プロンプト"><code>/floating island</code></td><td class="ds" data-label="どんな画像になるか">空に浮かぶ島の画像に</td><td class="us" data-label="向いている用途">ゲーム・LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/floating island" aria-label="/floating island をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">34</td><td class="pr" data-label="プロンプト"><code>/alien landscape</code></td><td class="ds" data-label="どんな画像になるか">異星のような、見たことのない風景に</td><td class="us" data-label="向いている用途">表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/alien landscape" aria-label="/alien landscape をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">35</td><td class="pr" data-label="プロンプト"><code>/space station</code></td><td class="ds" data-label="どんな画像になるか">宇宙ステーションの画像に</td><td class="us" data-label="向いている用途">表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/space station" aria-label="/space station をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">36</td><td class="pr" data-label="プロンプト"><code>/desert landscape</code></td><td class="ds" data-label="どんな画像になるか">砂漠の風景に</td><td class="us" data-label="向いている用途">LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/desert landscape" aria-label="/desert landscape をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">37</td><td class="pr" data-label="プロンプト"><code>/mountain landscape</code></td><td class="ds" data-label="どんな画像になるか">山の風景に</td><td class="us" data-label="向いている用途">LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/mountain landscape" aria-label="/mountain landscape をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">38</td><td class="pr" data-label="プロンプト"><code>/tropical island</code></td><td class="ds" data-label="どんな画像になるか">南国の島の画像に</td><td class="us" data-label="向いている用途">LP・旅行</td><td class="cp"><button type="button" class="btn-copy" data-text="/tropical island" aria-label="/tropical island をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">39</td><td class="pr" data-label="プロンプト"><code>/golden hour</code></td><td class="ds" data-label="どんな画像になるか">日没前後の、黄金色の光に包まれた画像に</td><td class="us" data-label="向いている用途">SNS・LP</td><td class="cp"><button type="button" class="btn-copy" data-text="/golden hour" aria-label="/golden hour をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">40</td><td class="pr" data-label="プロンプト"><code>/moonlit scene</code></td><td class="ds" data-label="どんな画像になるか">月明かりに照らされた場面に</td><td class="us" data-label="向いている用途">SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/moonlit scene" aria-label="/moonlit scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">41</td><td class="pr" data-label="プロンプト"><code>/storm scene</code></td><td class="ds" data-label="どんな画像になるか">嵐の場面に</td><td class="us" data-label="向いている用途">サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/storm scene" aria-label="/storm scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">42</td><td class="pr" data-label="プロンプト"><code>/magical forest</code></td><td class="ds" data-label="どんな画像になるか">魔法がかかったような森の画像に</td><td class="us" data-label="向いている用途">ブログ・表紙</td><td class="cp"><button type="button" class="btn-copy" data-text="/magical forest" aria-label="/magical forest をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">43</td><td class="pr" data-label="プロンプト"><code>/portal scene</code></td><td class="ds" data-label="どんな画像になるか">別世界への入口が開いた場面に</td><td class="us" data-label="向いている用途">ブログ・サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/portal scene" aria-label="/portal scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">44</td><td class="pr" data-label="プロンプト"><code>/reality glitch</code></td><td class="ds" data-label="どんな画像になるか">現実がバグったように乱れた画像に</td><td class="us" data-label="向いている用途">サムネ</td><td class="cp"><button type="button" class="btn-copy" data-text="/reality glitch" aria-label="/reality glitch をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">45</td><td class="pr" data-label="プロンプト"><code>/levitation scene</code></td><td class="ds" data-label="どんな画像になるか">人や物が宙に浮いた場面に</td><td class="us" data-label="向いている用途">商品イメージ・SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/levitation scene" aria-label="/levitation scene をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">46</td><td class="pr" data-label="プロンプト"><code>/giant object</code></td><td class="ds" data-label="どんな画像になるか">巨大な物がそびえ立つような画像に</td><td class="us" data-label="向いている用途">商品・広告</td><td class="cp"><button type="button" class="btn-copy" data-text="/giant object" aria-label="/giant object をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">47</td><td class="pr" data-label="プロンプト"><code>/miniature city</code></td><td class="ds" data-label="どんな画像になるか">ミニチュアの街のような画像に</td><td class="us" data-label="向いている用途">ブログ・SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/miniature city" aria-label="/miniature city をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">48</td><td class="pr" data-label="プロンプト"><code>/liquid sculpture</code></td><td class="ds" data-label="どんな画像になるか">液体が形になった彫刻のような画像に</td><td class="us" data-label="向いている用途">商品・広告</td><td class="cp"><button type="button" class="btn-copy" data-text="/liquid sculpture" aria-label="/liquid sculpture をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">49</td><td class="pr" data-label="プロンプト"><code>/fire sculpture</code></td><td class="ds" data-label="どんな画像になるか">炎が形になった彫刻のような画像に</td><td class="us" data-label="向いている用途">サムネ・広告</td><td class="cp"><button type="button" class="btn-copy" data-text="/fire sculpture" aria-label="/fire sculpture をコピー">コピー</button></td></tr>
+    <tr><td class="no" data-label="No.">50</td><td class="pr" data-label="プロンプト"><code>/ice sculpture</code></td><td class="ds" data-label="どんな画像になるか">氷の彫刻のような画像に</td><td class="us" data-label="向いている用途">広告・SNS</td><td class="cp"><button type="button" class="btn-copy" data-text="/ice sculpture" aria-label="/ice sculpture をコピー">コピー</button></td></tr>
+  </tbody>
+</table>
+
+<h2>このプロンプトは何に使えるのか</h2>
+<p>AIで作った画像は、次のような場面で使われています。まずは自分のSNSで試して、慣れてから案件に応募する流れが安全です。</p>
+<table class="stack">
+  <thead><tr><th>活用先</th><th>使われ方</th><th>合うプロンプトの例</th></tr></thead>
+  <tbody>
+    <tr><td class="lead">SNS投稿・バナー</td><td data-label="使われ方">Instagramの1枚目など、目を引く投稿画像</td><td data-label="合うプロンプトの例">magazine cover、movie poster、golden hour</td></tr>
+    <tr><td class="lead">広告バナー</td><td data-label="使われ方">Web広告やチラシに使う、商品ジャンルに合った画像</td><td data-label="合うプロンプトの例">perfume advertisement、watch advertisement、car advertisement</td></tr>
+    <tr><td class="lead">商品イメージ（ネットショップ）</td><td data-label="使われ方">商品を印象的に見せる画像</td><td data-label="合うプロンプトの例">product explosion、product flatlay、levitation scene</td></tr>
+    <tr><td class="lead">LP・Webサイトのメイン画像</td><td data-label="使われ方">ページの一番上に置く大きな画像や背景</td><td data-label="合うプロンプトの例">cinematic portrait、interior design、mountain landscape</td></tr>
+    <tr><td class="lead">YouTubeのサムネイル</td><td data-label="使われ方">クリックされやすい、インパクトのある背景</td><td data-label="合うプロンプトの例">villain portrait、action scene、reality glitch</td></tr>
+    <tr><td class="lead">ブログ・noteのアイキャッチ</td><td data-label="使われ方">記事の雰囲気に合う画像</td><td data-label="合うプロンプトの例">surreal portrait、double exposure、magical forest</td></tr>
+    <tr><td class="lead">電子書籍・小説の表紙</td><td data-label="使われ方">ジャンルに合わせた表紙の背景やメイン画像</td><td data-label="合うプロンプトの例">fantasy castle、romantic scene、post apocalyptic</td></tr>
+    <tr><td class="lead">ゲーム・キャラクター素材</td><td data-label="使われ方">背景やキャラクターのイメージ画像</td><td data-label="合うプロンプトの例">creature design、robot design、medieval village</td></tr>
+    <tr><td class="lead">飲食店・イベント</td><td data-label="使われ方">メニューやお知らせ用のイメージ画像</td><td data-label="合うプロンプトの例">food advertisement、wedding photography</td></tr>
+  </tbody>
+</table>
+<p>バナーやLPは文字入れやサイズ調整にCanvaなどのデザインツールを使u</p>
+
+<h2>応募から報酬を受け取るまでの流れ</h2>
+<p>クラウドワークスは、仕事を頼みたい人と受けたい人をつなぐ国内最大手の募集サイトです。画像制作の募集も日々出ています。一般的な流れは次のとおりです。</p>
+<ol>
+  <li>無料登録してプロフィールを作る。得意なこと、使えるツール（ChatGPT、Canvaなど）、対応できる時間を書きます</li>
+  <li>サンプル画像を用意する。このガイドのプロンプトで作った画像を、5〜10枚ほどまとめておきます。実績がない最初は、これが自己紹介になります</li>
+  <li>募集を探す。「バナー」「サムネイル」「画像制作」などで検索し、AI画像の利用が認められている案件を選びます</li>
+  <li>募集文を最後まで読む。納期、納品形式（PNGなど）、修正回数、AI利用の可否を確認します</li>
+  <li>応募する。何ができるか、いつまでに出せるか、サンプル画像を、短く具体的に書きます</li>
+  <li>契約して作る。採用されたら、クライアントと条件を確認して制作に入ります</li>
+  <li>納品する。指定の形式で納品し、修正があれば対応します</li>
+  <li>検収されて報酬が確定する。固定報酬の案件では、クライアントが確認（検収）すると報酬が確定します</li>
+  <li>手数料が引かれて、出金する。システム手数料が差し引かれた金額を、銀行口座に出金します</li>
+</ol>
+<p>手数料の割合や、画面の操作は変わることがあります。登録前に、クラウドワークスの公式ヘルプで最新の内容を確認してください。</p>
+
+<h2>単価の目安と現実</h2>
+<p>最初は数百円〜数千円の案件が中心で、応募者も多いのが現実です。2026年10月時点で確認できた例を並べます。</p>
+<table class="stack">
+  <thead><tr><th>案件の例</th><th>金額の目安</th><th>補足</th></tr></thead>
+  <tbody>
+    <tr><td class="lead"><a href="https://crowdworks.jp/public/jobs/13085664" target="_blank" rel="noopener noreferrer">広告バナー1枚</a></td><td data-label="金額の目安">7,700円（固定報酬）</td><td data-label="補足">応募35人、契約1人</td></tr>
+    <tr><td class="lead">バナー1枚（<a href="https://atsoho.com/blog/crowdworks-design-jobs-guide-2026" target="_blank" rel="noopener noreferrer">解説記事の相場</a>）</td><td data-label="金額の目安">1,000〜5,000円</td><td data-label="補足">文字入れなど仕上げを含む</td></tr>
+    <tr><td class="lead">LP制作（<a href="https://atsoho.com/blog/crowdworks-design-jobs-guide-2026" target="_blank" rel="noopener noreferrer">解説記事の相場</a>）</td><td data-label="金額の目安">3万〜15万円</td><td data-label="補足">画像だけでなくデザイン全体</td></tr>
+    <tr><td class="lead">サムネ・広告バナー用の画像素材（<a href="https://atsoho.com/blog/gazou-seisei-ai-fukugyo" target="_blank" rel="noopener noreferrer">解説記事の相場</a>）</td><td data-label="金額の目安">5,000〜2万円</td><td data-label="補足">文字を載せて納品できると有利</td></tr>
+    <tr><td class="lead"><a href="https://crowdworks.jp/public/jobs/13055985" target="_blank" rel="noopener noreferrer">AIショート動画用の画像生成</a></td><td data-label="金額の目安">テスト300円、本採用後は1本700円</td><td data-label="補足">画像5〜10枚。継続前提</td></tr>
+    <tr><td class="lead"><a href="https://crowdworks.jp/public/jobs/13400895" target="_blank" rel="noopener noreferrer">画像生成の継続案件</a></td><td data-label="金額の目安">月5万円〜</td><td data-label="補足">Stable Diffusionの経験者歓迎</td></tr>
+  </tbody>
+</table>
+<ul>
+  <li>募集は締め切られているものもあります。個別の案件ではなく、金額の「例」として見てください</li>
+  <li>バナー1枚の募集に、20〜35人が応募している例がありました</li>
+  <li>作業時間あたりの金額で考えると、最初は低めになりやすいです。実績とレビューが増えると、少しずつ上げやすくなります</li>
+</ul>
+
+<h2>注意点</h2>
+<p>応募する前に、次の5つを必ず確認してください。</p>
+<ul>
+  <li>AI利用のルールを確認する。案件によって、AI画像の利用が禁止だったり、利用を伝えるよう求められたりします。募集文とクラウドワークスの規約を確認し、迷ったらクライアントに先に聞きます</li>
+  <li>実在のものに似せない。実在のロゴ、キャラクター、有名人に似た画像は使いません。トラブルの元になります</li>
+  <li>商品を実物より良く見せない。AIは商品の形やロゴを正確には描けません。実際の商品を使う案件では、クライアントの写真をもとにするか、イメージ画像として使うことを伝えます</li>
+  <li>著作権と商用利用を確認する。AIが作った画像の権利は、はっきりしない部分があります。使うAIサービスの商用利用のルールを読み、著作権の扱いを契約前にクライアントと合意しておきます</li>
+  <li>画像を作って終わりではない。バナーやLPは、文字入れとサイズ調整が必要です。Canvaなどの使い方も、あわせて身につけると案件を受けやすくなります</li>
+</ul>
+<p>また、登録前に本業の会社の規則も確認しておくと安心です。</p>
+
+<h2>次のステップ</h2>
+<p>プロンプトで画像を作り、案件に挑戦したい方向けに、公式LINEとサポート会を用意しています。</p>
+<p>サポート会は、[ここにサポート会の内容と費用を1〜2行で入れる]。</p>
+<p>まずはこのガイドのプロンプトを3〜5個試して、自分で作った画像をSNSに載せてみてください。それがそのまま、最初のサンプル画像になります。</p>
+<p>詳しくは、下のLINEボタンからどうぞ。</p>
+<a class="btn-line" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+
+</main>
+
+<script>
+(function () {
+  function fallback(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); return ok;
+  }
+  function copy(text, cb) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { cb(true); }, function () { cb(fallback(text)); });
+      } else { cb(fallback(text)); }
+    } catch (e) { cb(fallback(text)); }
+  }
+  function flash(btn, label) {
+    copy(btn.getAttribute("data-text") || btn._text, function (ok) {
+      btn.textContent = ok ? "コピーしました" : "コピーできませんでした";
+      btn.classList.toggle("done", ok);
+      setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 1500);
+    });
+  }
+  var rows = document.querySelectorAll(".btn-copy");
+  Array.prototype.forEach.call(rows, function (b) {
+    b.addEventListener("click", function () { flash(b, "コピー"); });
+  });
+  var all = document.getElementById("copyAll");
+  all._text = Array.prototype.map.call(rows, function (b) { return b.getAttribute("data-text"); }).join("\n");
+  all.addEventListener("click", function () { flash(all, "50個まとめてコピー"); });
+})();
+</script>
+</body>
+</html>
