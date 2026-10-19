@@ -11,20 +11,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FFFFFF;
-  --ink: #1C1C1E;
-  --muted: #5F6064;
-  --line: #E3E3E6;
-  --soft: #F6F6F7;
-  --accent: #067A3A;
+  --bg: #FAF6EE;
+  --ink: #2B2520;
+  --muted: #6B6158;
+  --line: #E6DED0;
+  --soft: #FFFDF8;
+  --card: #FFFDF8;
+  --accent: #1F7A4D;
   --line-green: #06C755;
   --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
-  color-scheme: light dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #161618; --ink: #EDEDEF; --muted: #A4A5AA; --line: #34353A; --soft: #202124; --accent: #3DCB7A; }
-}
-:root[data-theme="dark"] { --bg: #161618; --ink: #EDEDEF; --muted: #A4A5AA; --line: #34353A; --soft: #202124; --accent: #3DCB7A; }
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -36,20 +32,21 @@ main { max-width: 760px; margin: 0 auto; padding: calc(32px + env(safe-area-inse
 h1 { font-size: clamp(24px, 6vw, 32px); line-height: 1.45; margin: 0 0 8px; padding-bottom: 14px; border-bottom: 3px solid var(--accent); }
 h2 { font-size: clamp(20px, 5vw, 24px); line-height: 1.5; margin: 52px 0 14px; padding-left: 12px; border-left: 4px solid var(--accent); }
 p { margin: 0 0 20px; }
-ul, ol { margin: 0 0 16px; padding-left: 1.5em; }
+ul, ol { margin: 0 0 22px; padding-left: 1.5em; }
+ul li, ol li { margin-bottom: 10px; }
 li { margin: 0 0 8px; }
 a { color: var(--accent); text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .95em; }
 
-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14.5px; line-height: 1.65; }
+table { width: 100%; border-collapse: collapse; margin: 0 0 20px; background: var(--card); border: 1px solid var(--line); font-size: 14.5px; line-height: 1.65; }
 th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
-thead th { background: var(--soft); font-weight: 700; font-size: 13.5px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+thead th { background: #F3EDE1; font-weight: 700; font-size: 13.5px; border-bottom: 2px solid var(--line); white-space: nowrap; }
 td.no { color: var(--muted); white-space: nowrap; width: 3em; }
 td.pr code { font-weight: 700; word-break: normal; overflow-wrap: anywhere; }
 td.cp { width: 1%; text-align: right; white-space: nowrap; }
 
-.btn-copy { font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--bg); border: 1px solid var(--accent); border-radius: 6px; padding: 4px 10px; cursor: pointer; white-space: nowrap; min-width: 4.5em; }
+.btn-copy { font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--card); border: 1px solid var(--accent); border-radius: 6px; padding: 4px 10px; cursor: pointer; white-space: nowrap; min-width: 4.5em; }
 .btn-copy.done { color: #fff; background: var(--accent); }
 .btn-all { display: block; width: 100%; font-family: inherit; font-size: 15px; font-weight: 700; color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 12px; margin: 0 0 14px; cursor: pointer; }
 .btn-all.done { opacity: .85; }
@@ -61,25 +58,38 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 .line-end { margin: 28px auto 0; }
 
 /* 動画 */
-.video { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 36px 0 0; border-radius: 12px; overflow: hidden; background: #000; }
+.video { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 8px 0 0; border-radius: 12px; overflow: hidden; background: #000; }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .alt { margin: 10px 0 0; text-align: center; }
 
-/* 応募の流れ（番号つきの5ステップ） */
-.steps { list-style: none; margin: 0 0 16px; padding: 0; }
-.steps li { display: grid; grid-template-columns: 36px 1fr; column-gap: 14px; margin: 0; padding: 20px 0; border-top: 1px solid var(--line); }
-.steps li:first-child { border-top: 0; padding-top: 6px; }
-.steps .num { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px; line-height: 1; }
-.steps b { display: block; font-size: 16.5px; line-height: 1.6; margin: 3px 0 4px; }
-.steps p { margin: 0; }
+/* 流れ図（全体像・応募の流れ）：スマホは縦、パソコンは横 */
+.flow { list-style: none; margin: 28px 0 24px; padding: 0; display: flex; flex-direction: column; align-items: stretch; }
+.flow li { margin: 0; }
+.flow .box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.flow .arrow { text-align: center; color: var(--accent); font-weight: 700; line-height: 1; padding: 8px 0; }
+.flow .arrow::before { content: "↓"; }
+.flow.overview .box { text-align: center; font-weight: 700; }
+.flow .goal { background: var(--accent); border-color: var(--accent); color: #fff; }
+.flow.steps .box { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; align-items: start; }
+.flow .num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px; line-height: 1; }
+.flow.steps b { display: block; font-size: 15.5px; line-height: 1.55; margin: 4px 0 4px; }
+.flow.steps span.d { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+@media (min-width: 760px) {
+  .flow { flex-direction: row; align-items: stretch; width: min(1040px, calc(100vw - 40px)); position: relative; left: 50%; transform: translateX(-50%); }
+  .flow .box { flex: 1; height: 100%; }
+  .flow li.item { flex: 1 1 0; min-width: 0; }
+  .flow .arrow { display: flex; align-items: center; padding: 0 8px; }
+  .flow .arrow::before { content: "→"; }
+  .flow.overview .box { display: grid; place-items: center; min-height: 64px; }
+  .flow.overview { width: 100%; left: 0; transform: none; }
+  .flow.steps .box { grid-template-columns: 1fr; row-gap: 6px; align-content: start; }
+}
 
-/* 注意点（淡い黄色のブロック） */
+/* 注意点（カード） */
 .notes { display: grid; gap: 12px; margin: 0 0 16px; }
-.note { background: #FFF7DB; color: #1C1C1E; border-radius: 10px; padding: 14px 16px; }
-.note b { display: block; font-size: 16px; line-height: 1.6; margin: 0 0 4px; }
+.note { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.note b { display: block; font-size: 16px; line-height: 1.6; margin: 0 0 6px; }
 .note p { margin: 0; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .note { background: #3A3320; color: var(--ink); } }
-:root[data-theme="dark"] .note { background: #3A3320; color: var(--ink); }
 
 /* スマホでは、表を1行ずつのまとまりにする */
 @media (max-width: 600px) {
@@ -105,6 +115,16 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 
 <h1>AI画像プロンプト50選 活用ガイド</h1>
 <a class="btn-line line-top" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+
+<ol class="flow overview">
+  <li class="item"><div class="box">プロンプトで画像を作る</div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box">活用先で使う</div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box">案件に応募する</div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box goal">報酬を受け取る</div></li>
+</ol>
 
 <div class="video">
   <iframe src="https://www.youtube-nocookie.com/embed/VTwTClDVMFE?rel=0&amp;playsinline=1" title="動画" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -199,13 +219,17 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 <p>バナーやLPは文字入れやサイズ調整にCanvaなどのデザインツールを使う場合が多いです。</p>
 
 <h2>応募から報酬を受け取るまでの流れ</h2>
-<p>クラウドワークスは、仕事を頼みたい人と受けたい人をつなぐ国内最大手の募集サイトです。画像制作の募集も日々出ています。一般的な流れは次のとおりです。</p>
-<ol class="steps">
-  <li><span class="num" aria-hidden="true">1</span><div><b>無料登録してプロフィールを作る</b><p>得意なこと、使えるツール（ChatGPT、Canvaなど）、対応できる時間を書きます</p></div></li>
-  <li><span class="num" aria-hidden="true">2</span><div><b>サンプル画像を用意する</b><p>このガイドのプロンプトで作った画像を、5〜10枚ほどまとめておきます。実績がない最初は、これが自己紹介になります</p></div></li>
-  <li><span class="num" aria-hidden="true">3</span><div><b>募集を探して、最後まで読む</b><p>「バナー」「サムネイル」「画像制作」などで検索し、AI画像の利用が認められている案件を選びます。納期、納品形式（PNGなど）、修正回数、AI利用の可否も確認します</p></div></li>
-  <li><span class="num" aria-hidden="true">4</span><div><b>応募して、契約して作る</b><p>何ができるか、いつまでに出せるか、サンプル画像を、短く具体的に書いて応募します。採用されたら、条件を確認して制作に入ります</p></div></li>
-  <li><span class="num" aria-hidden="true">5</span><div><b>納品して、報酬を受け取る</b><p>指定の形式で納品し、修正があれば対応します。固定報酬の案件では、クライアントの確認（検収）で報酬が確定し、システム手数料が引かれた金額を銀行口座に出金します</p></div></li>
+<p>クラウドワークスは、仕事を頼みたい人と受けたい人をつなぐ国内最大手の募集サイトです。画像制作の募集も日々出ています。一般的な流れは次の5つです。</p>
+<ol class="flow steps">
+  <li class="item"><div class="box"><span class="num" aria-hidden="true">1</span><div><b>無料登録してプロフィールを作る</b><span class="d">得意なこと、使えるツール、対応できる時間を書きます</span></div></div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box"><span class="num" aria-hidden="true">2</span><div><b>サンプル画像を用意する</b><span class="d">このガイドのプロンプトで、5〜10枚ほど作っておきます</span></div></div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box"><span class="num" aria-hidden="true">3</span><div><b>募集を探して、最後まで読む</b><span class="d">AI画像の利用の可否と、納期・納品形式・修正回数を確認します</span></div></div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box"><span class="num" aria-hidden="true">4</span><div><b>応募して、契約して作る</b><span class="d">できること・納期・サンプル画像を短く書いて応募します</span></div></div></li>
+  <li class="arrow" aria-hidden="true"></li>
+  <li class="item"><div class="box"><span class="num" aria-hidden="true">5</span><div><b>納品して、報酬を受け取る</b><span class="d">検収で報酬が確定し、手数料が引かれた金額を出金します</span></div></div></li>
 </ol>
 <p class="small">手数料の割合や、画面の操作は変わることがあります。登録前に、クラウドワークスの公式ヘルプで最新の内容を確認してください。</p>
 <a class="btn-line line-mid" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
