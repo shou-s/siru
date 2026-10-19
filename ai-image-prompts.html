@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>AI画像プロンプト50選</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sapphire: #1B3A8F;
+  --emerald: #0E6B57;
+  --amethyst: #5B2A86;
+  --ruby: #8C1F47;
+  --peacock: #0F6A7A;
+  --indigo: #2D2B8C;
+  --gold: #E8C06A;
+  --gold2: #D9AC4E;
+  --gold-d: #B98A2E;
+  --hair: rgba(232,192,106,.55);
+  --ivory: #FFFBF2;
+  --text: #FFF9EC;
+  --ink: #1B1630;
+  --sub: #5E5873;
+  --page: #1B1630;
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  --emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --page: #0E0B1E; }
+}
+:root[data-theme="dark"] { --page: #0E0B1E; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--text);
+  font-family: var(--font); font-weight: 400; font-size: 16px; line-height: 1.85; letter-spacing: .05em;
+  line-break: strict; word-break: auto-phrase; -webkit-text-size-adjust: 100%;
+}
+button { font-family: inherit; letter-spacing: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.k { display: inline-block; }
+.emo { font-family: var(--emoji); }
+
+/* 画面の外では、動きを止める */
+.screen:not(.vis) *, .screen:not(.vis) *::before, .screen:not(.vis) *::after { animation-play-state: paused !important; }
+
+/* 進み具合 */
+.top {
+  position: fixed; z-index: 20; left: 0; right: 0; top: 0;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 10px;
+  display: flex; align-items: center; gap: 12px; pointer-events: none;
+}
+.trk { flex: 1; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
+.trk i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #F5DA98, var(--gold2)); border-radius: 999px; transition: width .5s cubic-bezier(.3,1.1,.5,1); }
+#pg { flex: none; background: rgba(20,14,40,.72); color: var(--text); border: 1px solid var(--hair); border-radius: 999px; padding: 0 14px; font-size: 12.5px; font-weight: 700; line-height: 26px; }
+
+/* 1画面 */
+.screen { min-height: 100svh; display: flex; align-items: center; padding: 92px 22px 60px; position: relative; overflow: hidden; }
+.wrap { width: 100%; max-width: 460px; margin: 0 auto; position: relative; z-index: 1; }
+.s0 { background: linear-gradient(165deg, rgba(91,42,134,.74), rgba(27,58,143,.82)), url("data:image/webp;base64,UklGRvQAAABXRUJQVlA4IOgAAAAwCQCdASowADAAPs1WokunpKMhtVVYAPAZiWIAuzlBVX5A5jyTMArR8FJhcBymz2ufNeCeRcgCCpHHRfSjIS29bZi6ialwrAHz2q18+NZoV5wAAP7YlMY7oBLUbE1Ja/o547FLzfZk+vToRJLLAniwDkuBapQfQ/dYZA4H7RNCY7qU6QzffxIxb6DsX9XefflHP8RlU+1FCMDeaqdT1ZYhIkGLBYpYO7Beu52mGrFy9UrXc2qC0Kvnxs16ppRqAg7gkWUnYkaajcetfEWWvzViowvSn9gtVa8EJIaYIhShekQlkyZezuAA") center / cover no-repeat; padding: 0; align-items: stretch; }
+.s1 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--sapphire), #14286A); }
+.s2 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--emerald), #0A4A3D); }
+.s3 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--amethyst), #3E1B62); }
+.s4 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--ruby), #5E1230); }
+.s5 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--peacock), #0A4654); }
+.s6 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--indigo), #1F1A66); }
+.s7 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--emerald), #0A4A3D); }
+.s8 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--sapphire), #14286A); }
+.s9 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--ruby), #5E1230); }
+.s10 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--peacock), #0A4654); }
+.s11 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--indigo), #1F1A66); }
+.s12, .s13 { background: radial-gradient(circle at 50% 0%, rgba(232,192,106,.22), transparent 50%), linear-gradient(170deg, var(--amethyst), #3E1B62); }
+
+h2 { margin: 0 0 12px; font-weight: 700; line-height: 1.5; letter-spacing: .08em; font-size: clamp(26px, 7.4vw, 35px); text-wrap: balance; }
+h2::before { content: ""; display: block; width: 40px; height: 2px; background: var(--gold); margin-bottom: 18px; }
+.one { margin: 0 0 22px; font-size: 16px; font-weight: 500; color: rgba(255,249,236,.88); }
+.note { margin: 12px 2px 0; font-size: 12.5px; color: rgba(255,249,236,.7); }
+.note b { color: var(--gold); font-weight: 700; }
+
+.card, .fig {
+  background: var(--ivory); color: var(--ink);
+  border: 1px solid var(--hair); border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(8,4,24,.35);
+  padding: 18px;
+}
+.fig { padding: 12px; margin-bottom: 0; }
+.fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fig svg text { font-family: var(--font); }
+.btn {
+  display: inline-block; cursor: pointer; text-decoration: none;
+  background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink);
+  border: 1px solid rgba(255,255,255,.55); border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.6);
+  padding: 13px 30px; font-size: 16.5px; font-weight: 700; letter-spacing: .08em;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.6); }
+.center { text-align: center; }
+
+/* ===== 表紙（サムネを画面いっぱいに） ===== */
+.cv { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: calc(54px + env(safe-area-inset-top, 0px)) 0 28px; }
+.thumb { position: relative; width: min(100vw, 76svh); aspect-ratio: 1 / 1; overflow: hidden; isolation: isolate; background: #2D2B8C; box-shadow: 0 18px 44px rgba(0,0,0,.5); }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 40%; animation: zoom 9s ease-in-out infinite alternate; will-change: transform; }
+@keyframes zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+.thumb::after {
+  content: ""; position: absolute; top: -10%; bottom: -10%; left: 0; width: 34%; z-index: 2; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-160%) skewX(-12deg); animation: shine 4.4s ease-in-out infinite;
+}
+@keyframes shine { 0% { transform: translateX(-160%) skewX(-12deg); } 45%, 100% { transform: translateX(420%) skewX(-12deg); } }
+.cv-body { width: 100%; max-width: 460px; padding: 22px 22px 0; text-align: center; }
+.gift { display: flex; align-items: center; gap: 14px; text-align: left; max-width: 380px; margin: 0 auto 24px; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 16px; box-shadow: 0 10px 26px rgba(8,4,24,.35); padding: 13px 16px; }
+.gift .ic { font-size: 32px; line-height: 1; flex: none; }
+.gift b { display: block; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.gift span { font-size: 12.5px; color: var(--sub); line-height: 1.6; display: block; }
+.sm { font-size: 14.5px; margin: 0 0 20px; color: rgba(255,249,236,.88); }
+
+/* ===== 1 言葉で変わる（順に仕上がる） ===== */
+.sty { opacity: 0; transition: opacity .8s ease; transition-delay: calc(var(--n) * .7s + .5s); }
+.s1.in .sty { opacity: 1; }
+.kw { opacity: .35; transition: opacity .5s; transition-delay: calc(var(--n) * .7s + .5s); }
+.s1.in .kw { opacity: 1; }
+
+/* ===== 2・3 50の言葉（丸が埋まり、数字が増える） ===== */
+.meter { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.cnt { flex: none; text-align: center; line-height: 1; }
+.cnt b { display: block; font-size: 44px; font-weight: 700; color: var(--sapphire); letter-spacing: 0; font-variant-numeric: tabular-nums; min-width: 2ch; }
+.cnt small { display: block; margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--sub); }
+.dots50 { flex: 1; display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; justify-items: center; }
+.dots50 i { width: 100%; max-width: 15px; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--gold-d); background: #fff; }
+.dots50 i.pre { background: #D9D3EE; border-color: #B3A9D6; }
+.dots50 i.on { transition: background .3s ease; transition-delay: calc(var(--n) * 38ms + .3s); }
+.screen.in .dots50 i.on { background: linear-gradient(180deg, #F5DA98, var(--gold2)); }
+.wg + .wg { margin-top: 14px; }
+.wg-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 2px 8px; }
+.wg-h b { font-size: 16px; font-weight: 700; }
+.wg-h small { font-size: 12px; color: var(--gold-d); font-weight: 700; }
+.words { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.words li { background: #F5EFE2; border-radius: 10px; padding: 6px 9px 7px; line-height: 1.45; }
+.words li b { display: block; font-size: 13px; font-weight: 700; }
+.words li code { display: block; font-family: var(--font); font-size: 11px; color: var(--sub); letter-spacing: .01em; overflow-wrap: anywhere; -webkit-user-select: all; user-select: all; }
+
+/* ===== 4・7 プロンプト ===== */
+.pstep { display: flex; gap: 6px; margin: 0 0 14px; }
+.pstep span { flex: 1; text-align: center; font-size: 12px; font-weight: 700; line-height: 1.5; padding: 6px 4px; border-radius: 10px; border: 1px solid rgba(255,249,236,.28); color: rgba(255,249,236,.6); }
+.pstep span.cur { border-color: var(--gold); color: var(--ink); background: linear-gradient(180deg, #F5DA98, var(--gold2)); transform: scale(.94); transition: transform .5s cubic-bezier(.3,1.6,.5,1) .3s; }
+.screen.in .pstep span.cur { transform: none; }
+.prompt pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font); font-size: 14px; line-height: 1.9; color: var(--ink); }
+.copyrow { margin-top: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+.chips span { background: rgba(255,251,242,.12); border: 1px solid var(--hair); border-radius: 999px; padding: 2px 12px; font-size: 13px; font-weight: 500; }
+.chips-t { margin: 16px 0 0; text-align: center; font-size: 12.5px; color: rgba(255,249,236,.75); }
+.chips-t + .chips { margin-top: 6px; }
+
+/* ===== 5 使われる場面（線が伸びる） ===== */
+.ln { fill: none; stroke: #B98A2E; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .6s ease; transition-delay: calc(var(--n) * .25s + .4s); }
+.s5.in .ln { stroke-dashoffset: 0; }
+.nd { opacity: 0; transition: opacity .5s; transition-delay: calc(var(--n) * .25s + .8s); }
+.s5.in .nd { opacity: 1; }
+.flow2 { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.flow2 span { flex: 1; text-align: center; font-size: 13.5px; font-weight: 700; line-height: 1.55; padding: 9px 8px; border-radius: 12px; background: rgba(255,251,242,.12); border: 1px solid var(--hair); }
+.flow2 span:last-child { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); border-color: transparent; }
+.flow2 i { flex: none; font-style: normal; color: var(--gold); font-weight: 700; }
+
+/* ===== 6 応募の順番（丸が順に埋まる） ===== */
+.grp { position: relative; border: 1px dashed var(--gold-d); border-radius: 16px; padding: 20px 12px 4px; margin-top: 18px; }
+.grp:first-child { margin-top: 10px; }
+.grp .tag { position: absolute; top: -13px; left: 14px; background: var(--ivory); border: 1px solid var(--gold-d); color: var(--gold-d); border-radius: 999px; padding: 0 12px; font-size: 12px; font-weight: 700; line-height: 24px; opacity: 0; transform: translateY(4px); transition: opacity .5s, transform .5s; transition-delay: var(--t); }
+.s6.in .grp .tag { opacity: 1; transform: none; }
+.stp { list-style: none; margin: 0; padding: 0; }
+.stp li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; padding: 5px 0; font-size: 14.5px; font-weight: 500; line-height: 1.55; }
+.stp .no { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13.5px; border: 1.5px solid var(--gold-d); background: #fff; color: var(--gold-d); transition: background .4s, color .4s; transition-delay: calc(var(--n) * .28s + .3s); }
+.s6.in .stp .no { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); }
+.stp em { display: inline-block; margin-left: 4px; font-style: normal; font-size: 11px; font-weight: 700; color: #fff; background: var(--ruby); border-radius: 999px; padding: 0 9px; line-height: 20px; vertical-align: 1px; }
+
+/* ===== 8 金額の目安（棒が伸びる） ===== */
+.bar8 { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); transition: transform .9s cubic-bezier(.3,1.1,.5,1); transition-delay: calc(var(--n) * .3s + .4s); }
+.s8.in .bar8 { transform: none; }
+.v8 { opacity: 0; transition: opacity .5s; transition-delay: calc(var(--n) * .3s + 1s); }
+.s8.in .v8 { opacity: 1; }
+.zone { opacity: 0; transition: opacity .7s 2.4s; }
+.s8.in .zone { opacity: 1; }
+
+/* ===== 9 5つの確認（丸が順に埋まる） ===== */
+.five { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.five li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 14px; box-shadow: 0 6px 14px rgba(8,4,24,.28); padding: 11px 14px; }
+.five .no { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; border: 1.5px solid var(--gold-d); background: #fff; color: var(--gold-d); transition: background .4s, color .4s; transition-delay: calc(var(--n) * .35s + .4s); }
+.s9.in .five .no { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); }
+.five b { display: block; font-size: 15px; font-weight: 700; line-height: 1.5; }
+.five span { display: block; font-size: 13px; color: var(--sub); line-height: 1.65; }
+
+/* ===== 10 会社員の確認（一覧） ===== */
+.chk { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.chk li { display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: start; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 16px; box-shadow: 0 8px 20px rgba(8,4,24,.3); padding: 14px 16px; }
+.chk .emo { font-size: 30px; line-height: 1.4; text-align: center; }
+.chk b { display: block; font-weight: 700; font-size: 15.5px; line-height: 1.55; }
+.chk p { margin: 2px 0 0; font-size: 14px; color: var(--sub); line-height: 1.75; }
+
+/* ===== 11 今日（自動） ===== */
+.todo { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 12px; }
+.todo li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: center; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 14px; box-shadow: 0 6px 14px rgba(8,4,24,.28); padding: 13px 14px; font-size: 15.5px; line-height: 1.6; }
+.todo .box { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1.5px solid var(--gold-d); display: grid; place-items: center; transition: background .3s, border-color .3s; transition-delay: calc(var(--n) * .3s + .4s); }
+.todo .box svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 4; stroke-dasharray: 26; stroke-dashoffset: 26; transition: stroke-dashoffset .35s ease; transition-delay: calc(var(--n) * .3s + .5s); }
+.s11.in .todo .box { background: var(--emerald); border-color: var(--emerald); }
+.s11.in .todo .box svg { stroke-dashoffset: 0; }
+.fin { text-align: center; font-weight: 500; font-size: 16.5px; margin: 0; }
+
+/* ===== 12 動画 ===== */
+.video { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: #0E0B1E; border: 1px solid var(--hair); box-shadow: 0 14px 34px rgba(8,4,24,.4); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.alt { display: block; margin-top: 12px; text-align: center; font-size: 12.5px; color: rgba(255,249,236,.75); }
+.alt a { color: var(--gold); }
+
+/* ===== 公式LINEのカード（最初・真ん中）と予約ボタン ===== */
+.btn-line { display: block; width: 100%; text-align: center; text-decoration: none; background: #06C755; color: #fff; border-radius: 999px; padding: 14px 12px; font-size: 16px; font-weight: 700; letter-spacing: .06em; box-shadow: 0 4px 0 #05A948, 0 8px 18px rgba(0,0,0,.22); transition: transform .12s ease, box-shadow .12s ease; }
+.btn-line:active { transform: translateY(3px); box-shadow: 0 1px 0 #05A948, 0 4px 10px rgba(0,0,0,.2); }
+.linecard { background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 18px; box-shadow: 0 10px 26px rgba(8,4,24,.35); padding: 14px; text-align: left; }
+.linecard img { display: block; width: 100%; height: auto; border-radius: 12px; margin-bottom: 12px; }
+.linecard b { display: block; font-size: 16px; font-weight: 700; line-height: 1.5; margin: 0 2px 4px; }
+.linecard p { margin: 0 2px 14px; font-size: 13.5px; color: var(--sub); line-height: 1.75; }
+.cv .linecard { max-width: 380px; margin: 30px auto 0; }
+.linecard.mid { margin-top: 26px; }
+.rsv { margin-top: 18px; }
+.rsv .btn-line { border-radius: 16px; padding: 16px 12px; font-size: 17px; }
+.rsv p { margin: 10px 2px 0; font-size: 12px; text-align: center; color: rgba(255,249,236,.75); line-height: 1.8; }
+
+/* ===== 13 最後の画面（CTA） ===== */
+.ctabox { background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 24px; box-shadow: 0 18px 44px rgba(8,4,24,.45); padding: 12px; }
+.ctabox img { display: block; width: 100%; height: auto; border-radius: 14px; outline: 1px solid rgba(185,138,46,.45); outline-offset: -1px; }
+.ctatxt { margin: 16px 8px 16px; font-size: 15px; line-height: 1.95; }
+.nowfree { margin: 18px 4px 12px; text-align: center; font-weight: 700; font-size: 16px; line-height: 1.6; }
+.btn.big { margin-top: 0; position: relative; overflow: hidden; display: block; width: 100%; text-align: center; padding: 18px 12px; font-size: 18px; border-radius: 18px; isolation: isolate; }
+.btn.big::after {
+  content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 30%; z-index: -1; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.75), transparent);
+  transform: translateX(-160%) skewX(-14deg); animation: btnshine 3.6s ease-in-out infinite;
+}
+@keyframes btnshine { 0% { transform: translateX(-160%) skewX(-14deg); } 40%, 100% { transform: translateX(480%) skewX(-14deg); } }
+.fine { margin-top: 26px; font-size: 12px; color: rgba(255,249,236,.7); line-height: 1.9; }
+.fine p { margin: 0 0 4px; }
+
+.piece { position: fixed; z-index: 40; pointer-events: none; font-size: 26px; line-height: 1; font-family: var(--emoji); }
+.toast { position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 24px); opacity: 0; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 999px; transition: transform .25s, opacity .25s; pointer-events: none; z-index: 50; }
+.toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .sty, .kw, .nd, .v8, .zone { opacity: 1; }
+  .ln { stroke-dashoffset: 0; }
+  .bar8 { transform: none; }
+  .grp .tag { opacity: 1; transform: none; }
+  .dots50 i.on, .stp .no, .five .no { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); }
+  .pstep span.cur { transform: none; }
+  .todo .box { background: var(--emerald); border-color: var(--emerald); } .todo .box svg { stroke-dashoffset: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="trk"><i id="fill"></i></div><span id="pg">スタート</span></div>
+
+<!-- 0 表紙 -->
+<section class="screen s0 vis" data-i="0">
+  <div class="cv">
+    <div class="thumb">
+      <img src="img/ai-image-prompts/cover.webp" width="1080" height="1080" alt="AI画像プロンプト50選　言葉ひとつで、画像が変わる" fetchpriority="high">
+    </div>
+    <div class="cv-body">
+      <div class="gift">
+        <span class="ic emo">🎁</span>
+        <div><b>最後に、無料の教科書のご案内があります</b><span>『AIマネタイズの教科書』を、公式LINEで受け取れます</span></div>
+      </div>
+      <p class="sm">1画面に、ひとつだけ。全部で13枚です。</p>
+      <a class="btn" href="#s1">スタート ▼</a>
+      <div class="linecard">
+        <img src="img/common/textbook-cover.webp" width="1200" height="676" alt="AIマネタイズの教科書" decoding="async">
+        <b>AIで在宅ワークを始めたい方へ</b>
+        <p><span class="k">始め方を1冊にまとめた</span><span class="k">『AIマネタイズの教科書』を、</span><span class="k">公式LINEで</span><span class="k">無料でお渡ししています。</span></p>
+        <a class="btn-line" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 言葉で変わる -->
+<section class="screen s1" id="s1" data-i="1">
+  <div class="wrap">
+    <h2><span class="k">言葉ひとつで、</span><span class="k">画像が変わる</span></h2>
+    <p class="one"><span class="k">テーマは同じ。</span><span class="k">足す言葉だけで、</span><span class="k">仕上がりが変わります。</span></p>
+    <div class="fig">
+      <svg viewBox="0 0 320 328" role="img" aria-label="同じコーヒーのテーマに、雑誌の表紙、映画のポスター、商品がはじける、金色の光という言葉を足すと、それぞれ違う雰囲気の画像になる図">
+        <defs>
+          <symbol id="cup" viewBox="0 0 60 50"><path d="M10 12 h32 v14 a16 16 0 0 1 -32 0 z"/><path d="M42 16 h4 a7 7 0 0 1 0 14 h-5" fill="none" stroke-width="4" stroke="currentColor"/><rect x="4" y="44" width="44" height="4" rx="2"/></symbol>
+          <clipPath id="c1"><rect x="14" y="62" width="140" height="92" rx="10"/></clipPath>
+          <clipPath id="c2"><rect x="166" y="62" width="140" height="92" rx="10"/></clipPath>
+          <clipPath id="c3"><rect x="14" y="196" width="140" height="92" rx="10"/></clipPath>
+          <clipPath id="c4"><rect x="166" y="196" width="140" height="92" rx="10"/></clipPath>
+          <linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0B1E"/><stop offset="1" stop-color="#2D2B8C"/></linearGradient>
+          <linearGradient id="ghr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8C1F47"/><stop offset=".6" stop-color="#E8A04A"/><stop offset="1" stop-color="#F5DA98"/></linearGradient>
+        </defs>
+        <rect x="95" y="6" width="130" height="34" rx="17" fill="#1B1630"/>
+        <text x="160" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#FFF9EC">テーマ：コーヒー</text>
+        <!-- 素の状態（どれも同じ） -->
+        <g fill="#EDE8F5"><rect x="14" y="62" width="140" height="92" rx="10"/><rect x="166" y="62" width="140" height="92" rx="10"/><rect x="14" y="196" width="140" height="92" rx="10"/><rect x="166" y="196" width="140" height="92" rx="10"/></g>
+        <g fill="#B3A9D6" color="#B3A9D6"><use href="#cup" x="62" y="84" width="44" height="40"/><use href="#cup" x="214" y="84" width="44" height="40"/><use href="#cup" x="62" y="218" width="44" height="40"/><use href="#cup" x="214" y="218" width="44" height="40"/></g>
+        <!-- 1 雑誌の表紙 -->
+        <g class="sty" style="--n:0" clip-path="url(#c1)">
+          <rect x="14" y="62" width="140" height="92" fill="#FFFFFF"/>
+          <rect x="26" y="72" width="116" height="12" rx="2" fill="#8C1F47"/>
+          <use href="#cup" x="60" y="92" width="48" height="42" fill="#1B1630" color="#1B1630"/>
+          <rect x="26" y="140" width="62" height="5" rx="2.5" fill="#5E5873"/>
+          <rect x="14.5" y="62.5" width="139" height="91" rx="10" fill="none" stroke="#D9D3EE"/>
+        </g>
+        <!-- 2 映画のポスター -->
+        <g class="sty" style="--n:1" clip-path="url(#c2)">
+          <rect x="166" y="62" width="140" height="92" fill="url(#pgr)"/>
+          <circle cx="236" cy="100" r="28" fill="#E8C06A" opacity=".28"/>
+          <use href="#cup" x="214" y="80" width="44" height="40" fill="#0E0B1E" color="#0E0B1E"/>
+          <rect x="196" y="136" width="80" height="7" rx="3.5" fill="#E8C06A"/>
+        </g>
+        <!-- 3 商品がはじける -->
+        <g class="sty" style="--n:2" clip-path="url(#c3)">
+          <rect x="14" y="196" width="140" height="92" fill="#0E6B57"/>
+          <g fill="#F5DA98"><circle cx="36" cy="214" r="5"/><circle cx="132" cy="210" r="4.5"/><circle cx="30" cy="266" r="4"/><circle cx="136" cy="272" r="6"/><circle cx="84" cy="206" r="3.5"/><rect x="112" y="236" width="9" height="9" rx="2" transform="rotate(30 116 240)"/><rect x="44" y="238" width="8" height="8" rx="2" transform="rotate(-20 48 242)"/></g>
+          <use href="#cup" x="62" y="222" width="44" height="40" fill="#FFFBF2" color="#FFFBF2"/>
+        </g>
+        <!-- 4 金色の光 -->
+        <g class="sty" style="--n:3" clip-path="url(#c4)">
+          <rect x="166" y="196" width="140" height="92" fill="url(#ghr)"/>
+          <circle cx="236" cy="258" r="20" fill="#FFE7A8"/>
+          <rect x="166" y="264" width="140" height="24" fill="#5E1230" opacity=".55"/>
+          <use href="#cup" x="218" y="232" width="38" height="34" fill="#3E1B62" color="#3E1B62"/>
+        </g>
+        <g class="kw" style="--n:0"><text x="84" y="172" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B1630">雑誌の表紙</text><text x="84" y="187" text-anchor="middle" font-size="10" fill="#5E5873">/magazine cover</text></g>
+        <g class="kw" style="--n:1"><text x="236" y="172" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B1630">映画のポスター</text><text x="236" y="187" text-anchor="middle" font-size="10" fill="#5E5873">/movie poster</text></g>
+        <g class="kw" style="--n:2"><text x="84" y="306" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B1630">商品がはじける</text><text x="84" y="321" text-anchor="middle" font-size="10" fill="#5E5873">/product explosion</text></g>
+        <g class="kw" style="--n:3"><text x="236" y="306" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B1630">金色の光</text><text x="236" y="321" text-anchor="middle" font-size="10" fill="#5E5873">/golden hour</text></g>
+      </svg>
+    </div>
+    <p class="note">※ 同じ言葉でも、できる画像は毎回少しずつ変わります。</p>
+  </div>
+</section>
+
+<!-- 2 50の言葉（前半） -->
+<section class="screen s2" data-i="2">
+  <div class="wrap">
+    <h2><span class="k">50の言葉、</span><span class="k">前半の24個</span></h2>
+    <p class="one"><span class="k">広告・表紙・人物。</span><span class="k">使い道で選びます。</span></p>
+    <div class="card">
+      <div class="meter">
+        <div class="cnt"><b class="count" data-from="0" data-to="24">0</b><small>/ 50</small></div>
+        <div class="dots50" data-from="0" data-to="24" aria-hidden="true"></div>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>広告・商品</b><small>広告バナー・ネットショップ向き</small></div>
+        <ul class="words">
+          <li><b>商品がはじけ飛ぶ</b><code>/product explosion</code></li>
+          <li><b>真上から並べ撮り</b><code>/product flatlay</code></li>
+          <li><b>細部を超アップで</b><code>/product macro</code></li>
+          <li><b>香水の広告風</b><code>/perfume advertisement</code></li>
+          <li><b>腕時計の広告風</b><code>/watch advertisement</code></li>
+          <li><b>車の広告風</b><code>/car advertisement</code></li>
+          <li><b>おいしそうな料理広告</b><code>/food advertisement</code></li>
+          <li><b>ふわりと宙に浮く</b><code>/levitation scene</code></li>
+          <li><b>巨大な物がそびえる</b><code>/giant object</code></li>
+          <li><b>液体でできた彫刻</b><code>/liquid sculpture</code></li>
+          <li><b>炎でできた彫刻</b><code>/fire sculpture</code></li>
+          <li><b>氷でできた彫刻</b><code>/ice sculpture</code></li>
+        </ul>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>表紙・ポスター</b><small>SNS投稿・サムネイル向き</small></div>
+        <ul class="words">
+          <li><b>雑誌の表紙</b><code>/magazine cover</code></li>
+          <li><b>映画のポスター</b><code>/movie poster</code></li>
+          <li><b>アルバムのジャケット</b><code>/album cover</code></li>
+          <li><b>キャラクターのポスター</b><code>/character poster</code></li>
+        </ul>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>人物・写真</b><small>LP・ブログ・イベント向き</small></div>
+        <ul class="words">
+          <li><b>映画のような人物</b><code>/cinematic portrait</code></li>
+          <li><b>迫力ある悪役</b><code>/villain portrait</code></li>
+          <li><b>不思議な人物</b><code>/surreal portrait</code></li>
+          <li><b>写真が二重に重なる</b><code>/double exposure</code></li>
+          <li><b>結婚式の写真</b><code>/wedding photography</code></li>
+          <li><b>街角のスナップ</b><code>/street photography</code></li>
+          <li><b>建築の写真</b><code>/architecture photography</code></li>
+          <li><b>おしゃれな部屋</b><code>/interior design</code></li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">※ 英語の部分は、長押しで選んでコピーできます。</p>
+  </div>
+</section>
+
+<!-- 3 50の言葉（後半） -->
+<section class="screen s3" data-i="3">
+  <div class="wrap">
+    <h2><span class="k">50の言葉、</span><span class="k">後半の26個</span></h2>
+    <p class="one"><span class="k">場面・世界・風景。</span><span class="k">表紙や素材に向きます。</span></p>
+    <div class="card">
+      <div class="meter">
+        <div class="cnt"><b class="count" data-from="24" data-to="50">24</b><small>/ 50</small></div>
+        <div class="dots50" data-from="24" data-to="50" aria-hidden="true"></div>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>映画の場面</b><small>サムネイル・本の表紙向き</small></div>
+        <ul class="words">
+          <li><b>ヒーロー映画の場面</b><code>/superhero scene</code></li>
+          <li><b>アクション映画の迫力</b><code>/action scene</code></li>
+          <li><b>ホラーの不気味さ</b><code>/horror scene</code></li>
+          <li><b>恋愛映画の場面</b><code>/romantic scene</code></li>
+          <li><b>嵐の場面</b><code>/storm scene</code></li>
+          <li><b>別世界への入口</b><code>/portal scene</code></li>
+          <li><b>現実がバグったよう</b><code>/reality glitch</code></li>
+        </ul>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>空想の世界</b><small>ゲーム素材・表紙向き</small></div>
+        <ul class="words">
+          <li><b>空想の生き物</b><code>/creature design</code></li>
+          <li><b>ロボットのデザイン</b><code>/robot design</code></li>
+          <li><b>未来の乗り物</b><code>/vehicle concept</code></li>
+          <li><b>ネオンの近未来都市</b><code>/cyberpunk city</code></li>
+          <li><b>文明が崩れた世界</b><code>/post apocalyptic</code></li>
+          <li><b>中世ヨーロッパの村</b><code>/medieval village</code></li>
+          <li><b>古代の神殿</b><code>/ancient temple</code></li>
+          <li><b>ファンタジーのお城</b><code>/fantasy castle</code></li>
+          <li><b>海の底の都市</b><code>/underwater city</code></li>
+          <li><b>空に浮かぶ島</b><code>/floating island</code></li>
+          <li><b>異星の風景</b><code>/alien landscape</code></li>
+          <li><b>宇宙ステーション</b><code>/space station</code></li>
+          <li><b>魔法の森</b><code>/magical forest</code></li>
+          <li><b>ミニチュアの街</b><code>/miniature city</code></li>
+        </ul>
+      </div>
+      <div class="wg">
+        <div class="wg-h"><b>風景・光</b><small>LP・SNS・旅行向き</small></div>
+        <ul class="words">
+          <li><b>砂漠の風景</b><code>/desert landscape</code></li>
+          <li><b>山の風景</b><code>/mountain landscape</code></li>
+          <li><b>南国の島</b><code>/tropical island</code></li>
+          <li><b>夕暮れの金色の光</b><code>/golden hour</code></li>
+          <li><b>月明かりの場面</b><code>/moonlit scene</code></li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">※ 次の画面の文に、選んだ言葉を入れて使います。</p>
+  </div>
+</section>
+
+<!-- 4 プロンプト① 試しに1枚 -->
+<section class="screen s4" data-i="4">
+  <div class="wrap">
+    <div class="pstep" aria-hidden="true"><span class="cur">① 試しに1枚</span><span>② 応募用の見本</span></div>
+    <h2><span class="k">まずは、</span><span class="k">自分のSNS用に1枚</span></h2>
+    <p class="one"><span class="k">（　）を書きかえて、</span><span class="k">ChatGPTに貼ります。</span></p>
+    <div class="card prompt">
+      <pre id="pr1">（コーヒー豆の袋）の画像を作ってください。
+
+雰囲気：/（magazine cover）
+形：（正方形）
+
+【守ってほしいこと】
+・画像の中に、文字やロゴは入れないでください
+・実在の人物、ブランド、キャラクターに似せないでください</pre>
+    </div>
+    <div class="copyrow center"><button class="btn copy" data-target="pr1">コピーする</button></div>
+    <p class="chips-t">「形」は、使う場所に合わせます</p>
+    <div class="chips"><span>正方形（投稿）</span><span>横長（サムネイル）</span><span>縦長（ストーリーズ）</span></div>
+    <p class="note">※ 気に入らなければ、同じ文でもう一度。毎回少しずつ変わります。</p>
+  </div>
+</section>
+
+<!-- 5 使われる場面 -->
+<section class="screen s5" data-i="5">
+  <div class="wrap">
+    <h2><span class="k">画像が使われる、</span><span class="k">6つの場面</span></h2>
+    <p class="one"><span class="k">どれも、</span><span class="k">お仕事として募集が出る場面です。</span></p>
+    <div class="fig">
+      <svg viewBox="0 0 320 300" role="img" aria-label="AI画像の使い道：SNS投稿、広告バナー、ネットショップ、LP・サイト、サムネイル、表紙・素材">
+        <defs><linearGradient id="hub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5DA98"/><stop offset="1" stop-color="#D9AC4E"/></linearGradient></defs>
+        <line class="ln" style="--n:0" pathLength="100" x1="160" y1="150" x2="160" y2="38"/>
+        <line class="ln" style="--n:1" pathLength="100" x1="160" y1="150" x2="262" y2="94"/>
+        <line class="ln" style="--n:2" pathLength="100" x1="160" y1="150" x2="262" y2="206"/>
+        <line class="ln" style="--n:3" pathLength="100" x1="160" y1="150" x2="160" y2="262"/>
+        <line class="ln" style="--n:4" pathLength="100" x1="160" y1="150" x2="58" y2="206"/>
+        <line class="ln" style="--n:5" pathLength="100" x1="160" y1="150" x2="58" y2="94"/>
+        <circle cx="160" cy="150" r="42" fill="url(#hub)" stroke="#B98A2E" stroke-width="1.5"/>
+        <text x="160" y="156" text-anchor="middle" font-size="16" font-weight="700" fill="#1B1630">AI画像</text>
+        <g class="nd" style="--n:0"><rect x="106" y="13" width="108" height="50" rx="12" fill="#1B3A8F"/><text x="160" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">SNS投稿</text><text x="160" y="52" text-anchor="middle" font-size="10" fill="#F5DA98">目を引く1枚目</text></g>
+        <g class="nd" style="--n:1"><rect x="208" y="69" width="108" height="50" rx="12" fill="#8C1F47"/><text x="262" y="91" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">広告バナー</text><text x="262" y="108" text-anchor="middle" font-size="10" fill="#F5DA98">商品に合う広告</text></g>
+        <g class="nd" style="--n:2"><rect x="208" y="181" width="108" height="50" rx="12" fill="#0E6B57"/><text x="262" y="203" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">ネットショップ</text><text x="262" y="220" text-anchor="middle" font-size="10" fill="#F5DA98">商品を印象的に</text></g>
+        <g class="nd" style="--n:3"><rect x="106" y="237" width="108" height="50" rx="12" fill="#5B2A86"/><text x="160" y="259" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">LP・サイト</text><text x="160" y="276" text-anchor="middle" font-size="10" fill="#F5DA98">ページの顔になる</text></g>
+        <g class="nd" style="--n:4"><rect x="4" y="181" width="108" height="50" rx="12" fill="#0F6A7A"/><text x="58" y="203" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">サムネイル</text><text x="58" y="220" text-anchor="middle" font-size="10" fill="#F5DA98">動画の入口の1枚</text></g>
+        <g class="nd" style="--n:5"><rect x="4" y="69" width="108" height="50" rx="12" fill="#2D2B8C"/><text x="58" y="91" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">表紙・素材</text><text x="58" y="108" text-anchor="middle" font-size="10" fill="#F5DA98">電子書籍・ゲーム</text></g>
+      </svg>
+    </div>
+    <div class="flow2"><span>まずは、自分のSNSで試す</span><i>▶</i><span>慣れたら、募集に応募</span></div>
+    <p class="note">※ バナーやLPは、文字入れやサイズ調整を、Canvaなどで仕上げることが多いです。</p>
+    <div class="linecard mid">
+      <b>ここから先で、止まりそうな方へ</b>
+      <p><span class="k">1人で進めるのが</span><span class="k">不安な方は、</span><span class="k">公式LINEで</span><span class="k">教科書を受け取ってください。</span></p>
+      <a class="btn-line" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6 応募から入金まで -->
+<section class="screen s6" data-i="6">
+  <div class="wrap">
+    <h2><span class="k">応募から入金まで、</span><span class="k">9つの順番</span></h2>
+    <p class="one"><span class="k">クラウドワークスでの、</span><span class="k">一般的な流れです。</span></p>
+    <div class="card">
+      <div class="grp" style="--t:.3s">
+        <span class="tag">応募の前に</span>
+        <ol class="stp">
+          <li style="--n:0"><span class="no">1</span><span>無料登録して、プロフィールを書く</span></li>
+          <li style="--n:1"><span class="no">2</span><span>見本の画像を、5〜10枚そろえる<em>次の画面</em></span></li>
+        </ol>
+      </div>
+      <div class="grp" style="--t:.9s">
+        <span class="tag">応募する</span>
+        <ol class="stp">
+          <li style="--n:2"><span class="no">3</span><span>「バナー」「サムネイル」で探す</span></li>
+          <li style="--n:3"><span class="no">4</span><span>募集文を、最後まで読む</span></li>
+          <li style="--n:4"><span class="no">5</span><span>できること・納期・見本を、短く送る</span></li>
+        </ol>
+      </div>
+      <div class="grp" style="--t:1.7s">
+        <span class="tag">作って、受け取る</span>
+        <ol class="stp">
+          <li style="--n:5"><span class="no">6</span><span>契約して、条件を確かめて作る</span></li>
+          <li style="--n:6"><span class="no">7</span><span>指定の形式で納品し、修正に応える</span></li>
+          <li style="--n:7"><span class="no">8</span><span>確認（検収）されて、報酬が確定</span></li>
+          <li style="--n:8"><span class="no">9</span><span>手数料が引かれて、口座へ出金</span></li>
+        </ol>
+      </div>
+    </div>
+    <p class="note">※ 4では、<b>納期・納品の形式・修正の回数・AIを使ってよいか</b>を確かめます。</p>
+    <p class="note">※ 手数料や画面は変わることがあります。登録前に、公式ヘルプで最新の内容をご確認ください。</p>
+  </div>
+</section>
+
+<!-- 7 プロンプト② 応募用の見本 -->
+<section class="screen s7" data-i="7">
+  <div class="wrap">
+    <div class="pstep" aria-hidden="true"><span>① 試しに1枚</span><span class="cur">② 応募用の見本</span></div>
+    <h2><span class="k">応募用の見本を、</span><span class="k">5〜10枚つくる</span></h2>
+    <p class="one"><span class="k">実績がないうちは、</span><span class="k">見本が自己紹介になります。</span></p>
+    <div class="card prompt">
+      <pre id="pr2">お仕事に応募するときに見せる、見本の画像を作ってください。
+
+使う場所：（YouTubeのサムネイル）
+テーマ：（夜のカフェで勉強する人）
+雰囲気：/（cinematic portrait）
+形：（横長）
+
+【守ってほしいこと】
+・あとで文字を入れるので、（左側）に余白を空けてください
+・画像の中に、文字やロゴは入れないでください
+・実在の人物、ブランド、キャラクターに似せないでください</pre>
+    </div>
+    <div class="copyrow center"><button class="btn copy" data-target="pr2">コピーする</button></div>
+    <p class="chips-t">「使う場所」を変えて、見本をそろえます</p>
+    <div class="chips"><span>Instagramの投稿</span><span>広告バナー</span><span>ネットショップの商品画像</span><span>LPのメイン画像</span><span>電子書籍の表紙</span></div>
+  </div>
+</section>
+
+<!-- 8 金額の目安 -->
+<section class="screen s8" data-i="8">
+  <div class="wrap">
+    <h2><span class="k">最初は、</span><span class="k">数百円〜数千円から</span></h2>
+    <p class="one"><span class="k">実績とレビューが増えると、</span><span class="k">少しずつ上げやすくなります。</span></p>
+    <div class="fig">
+      <svg viewBox="0 0 320 258" role="img" aria-label="募集の金額の一例：AI動画用の画像はテスト300円、本採用後は1本700円。バナー1枚は1,000〜5,000円。サムネイルやバナー用の画像素材は5,000〜2万円。LP制作はデザイン全体で3万〜15万円。最初は数百円から数千円のあたり">
+        <rect class="zone" x="54" y="4" width="116" height="200" rx="10" fill="rgba(232,192,106,.16)" stroke="#B98A2E" stroke-dasharray="4 4"/>
+        <text x="20" y="22" font-size="11.5" font-weight="700" fill="#1B1630">AI動画用の画像（テスト→本採用）</text>
+        <rect class="bar8" style="--n:0" x="60" y="30" width="32" height="16" rx="8" fill="#0F6A7A"/>
+        <text class="v8" style="--n:0" x="98" y="43" font-size="11" fill="#5E5873">300円 → 1本700円</text>
+        <text x="20" y="72" font-size="11.5" font-weight="700" fill="#1B1630">バナー1枚</text>
+        <rect class="bar8" style="--n:1" x="105" y="80" width="59" height="16" rx="8" fill="#1B3A8F"/>
+        <text class="v8" style="--n:1" x="170" y="93" font-size="11" fill="#5E5873">1,000〜5,000円</text>
+        <text x="20" y="122" font-size="11.5" font-weight="700" fill="#1B1630">サムネイル・バナー用の画像素材</text>
+        <rect class="bar8" style="--n:2" x="164" y="130" width="51" height="16" rx="8" fill="#5B2A86"/>
+        <text class="v8" style="--n:2" x="221" y="143" font-size="11" fill="#5E5873">5,000〜2万円</text>
+        <text x="20" y="172" font-size="11.5" font-weight="700" fill="#1B1630">LP制作（デザイン全体）</text>
+        <rect class="bar8" style="--n:3" x="230" y="180" width="59" height="16" rx="8" fill="#8C1F47"/>
+        <text class="v8" style="--n:3" x="224" y="193" text-anchor="end" font-size="11" fill="#5E5873">3万〜15万円</text>
+        <line x1="20" y1="214" x2="300" y2="214" stroke="#5E5873" stroke-width="1"/>
+        <g stroke="#5E5873" stroke-width="1"><line x1="20" y1="210" x2="20" y2="218"/><line x1="105" y1="210" x2="105" y2="218"/><line x1="190" y1="210" x2="190" y2="218"/><line x1="275" y1="210" x2="275" y2="218"/></g>
+        <g font-size="10" fill="#5E5873" text-anchor="middle"><text x="20" y="231">100円</text><text x="105" y="231">1,000円</text><text x="190" y="231">1万円</text><text x="275" y="231">10万円</text></g>
+        <text class="zone" x="112" y="252" text-anchor="middle" font-size="11.5" font-weight="700" fill="#B98A2E">最初は、このあたり</text>
+      </svg>
+    </div>
+    <p class="note">※ 2026年10月時点で見られた募集の一例です。締め切り済みのものも含みます。金額を約束するものではありません。</p>
+    <p class="note">※ 目盛りは、10倍ごとに同じ幅です。</p>
+  </div>
+</section>
+
+<!-- 9 応募前の5つの確認 -->
+<section class="screen s9" data-i="9">
+  <div class="wrap">
+    <h2><span class="k">応募の前に、</span><span class="k">5つの確認</span></h2>
+    <p class="one"><span class="k">ひとつずつ見てから、</span><span class="k">応募します。</span></p>
+    <ul class="five">
+      <li style="--n:0"><span class="no">1</span><div><b>AIを使ってよい案件か</b><span>禁止や、申告が必要な募集もあります。迷ったら先に聞きます。</span></div></li>
+      <li style="--n:1"><span class="no">2</span><div><b>実在のものに似せない</b><span>ロゴ、キャラクター、有名人に似た画像は使いません。</span></div></li>
+      <li style="--n:2"><span class="no">3</span><div><b>商品を実物より良く見せない</b><span>本物の商品は、依頼主の写真をもとにします。</span></div></li>
+      <li style="--n:3"><span class="no">4</span><div><b>権利と商用利用を確かめる</b><span>使うAIの規約を読み、権利の扱いを契約前に決めておきます。</span></div></li>
+      <li style="--n:4"><span class="no">5</span><div><b>文字入れまでが、お仕事</b><span>サイズ調整や文字入れも、Canvaなどで仕上げます。</span></div></li>
+    </ul>
+    <p class="note">※ 権利の扱いで迷うときは、くわしくは専門家にご相談ください。</p>
+  </div>
+</section>
+
+<!-- 10 会社員の確認 -->
+<section class="screen s10" data-i="10">
+  <div class="wrap">
+    <h2><span class="k">会社員は、</span><span class="k">始める前に3つ</span></h2>
+    <p class="one"><span class="k">この順番で確かめておくと、</span><span class="k">安心です。</span></p>
+    <ul class="chk">
+      <li><span class="emo">📄</span><div><b>1. 就業規則を読む</b><p>副業してよいか、条件はあるかを見ます。</p></div></li>
+      <li><span class="emo">🏢</span><div><b>2. 届け出がいるか聞く</b><p>必要なら、始める前に出しておきます。</p></div></li>
+      <li><span class="emo">🧾</span><div><b>3. 年20万円を超えたら申告</b><p>副業の所得が年間20万円を超えると、確定申告が必要になるのが目安です。くわしくは、税務署や専門家にご確認ください。</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11 今日 -->
+<section class="screen s11" data-i="11">
+  <div class="wrap">
+    <h2><span class="k">今日やること、</span><span class="k">3つだけ</span></h2>
+    <p class="one"><span class="k">ぜんぶ終わらなくても、</span><span class="k">大丈夫です。</span></p>
+    <ul class="todo">
+      <li style="--n:0"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>50の言葉から、好きなものを3つ選ぶ</span></li>
+      <li style="--n:1"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>プロンプト①で、1枚つくってみる</span></li>
+      <li style="--n:2"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>気に入った1枚を、保存しておく</span></li>
+    </ul>
+    <p class="fin">まずは、自分のSNSで1枚。<br>慣れたら、見本づくりへ。</p>
+  </div>
+</section>
+
+<!-- 12 動画 -->
+<section class="screen s12" data-i="12">
+  <div class="wrap">
+    <h2><span class="k">動画でも、</span><span class="k">お話ししています</span></h2>
+    <p class="one"><span class="k">見終わったら、</span><span class="k">下のボタンから進んでください。</span></p>
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/VTwTClDVMFE?rel=0&amp;playsinline=1" title="動画でも、お話ししています" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p class="alt">動画が表示されない場合は、<a href="https://youtu.be/VTwTClDVMFE" target="_blank" rel="noopener noreferrer">こちら（YouTubeで見る）</a></p>
+    <div class="rsv">
+      <a class="btn-line" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">LINEでサポート会を予約する</a>
+      <p><span class="k">LINE登録後に届く</span><span class="k">『AIマネタイズの教科書』の中から、</span><span class="k">無料で予約できます。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 最後の画面 -->
+<section class="screen s13" data-i="13">
+  <div class="wrap">
+    <div class="ctabox">
+      <img src="img/common/textbook-cover.webp" width="1200" height="676" alt="AIマネタイズの教科書" loading="lazy" decoding="async">
+      <p class="ctatxt"><span class="k">言葉をひとつ</span><span class="k">変えるだけで、</span><span class="k">画像の印象は</span><span class="k">ここまで変わります。</span><span class="k">ただ、</span><span class="k">お仕事につなげるには、</span><span class="k">作った画像の</span><span class="k">「見せ方」と</span><span class="k">「応募のしかた」も</span><span class="k">大切です。</span><span class="k">僕が</span><span class="k">ゼロから</span><span class="k">試してきた</span><span class="k">進め方を、</span><span class="k">無料の</span><span class="k">『AIマネタイズの教科書』に</span><span class="k">まとめました。</span></p>
+      <img src="img/common/textbook-contents.webp" width="1122" height="1402" alt="教科書の目次：第1章 いま一番始めやすいAIマネタイズ手法、第2章 ChatGPT収益化プロンプト3選、第3章 AIマネタイズ神テンプレート、第4章 マネタイズのための生成AIツール3選、第5章 AI×SNSで収益を生むリアル事例、最終章 特別特典" loading="lazy" decoding="async">
+      <p class="nowfree"><span class="k">今だけ、</span><span class="k">公式LINEで</span><span class="k">無料プレゼント中です</span></p>
+      <a class="btn big" id="lineBtn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+    </div>
+    <div class="fine">
+      <p>※ 成果や収益を保証するものではありません。</p>
+      <p>※ 税金や会社のきまりは、状況によって異なります。</p>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* 紙吹雪（金色系） */
+  function burst(emojis, x, y, n) {
+    if (reduce) return;
+    n = n || 12;
+    for (var k = 0; k < n; k++) {
+      var p = document.createElement("span");
+      p.className = "piece";
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = x + "px"; p.style.top = y + "px";
+      document.body.appendChild(p);
+      var ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * 120;
+      var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 50;
+      if (p.animate) {
+        var a = p.animate([
+          { transform: "translate(-50%,-50%) scale(.4) rotate(0deg)", opacity: 1 },
+          { transform: "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) scale(1.15) rotate(" + (Math.random() * 300 - 150) + "deg)", opacity: 1, offset: .55 },
+          { transform: "translate(calc(-50% + " + dx * 1.1 + "px), calc(-50% + " + (dy + 100) + "px)) scale(.8) rotate(" + (Math.random() * 400 - 200) + "deg)", opacity: 0 }
+        ], { duration: 950 + Math.random() * 400, easing: "cubic-bezier(.2,.7,.3,1)" });
+        a.onfinish = (function (el) { return function () { el.remove(); }; })(p);
+      } else { p.remove(); }
+    }
+  }
+  var toast = $("#toast"), tt;
+  function say(m) { toast.textContent = m; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("show"); }, 1800); }
+  function later(fn, ms) { if (reduce) fn(); else setTimeout(fn, ms); }
+
+  /* 50個の丸（前半は1〜24、後半は25〜50が埋まる） */
+  $$(".dots50").forEach(function (g) {
+    var from = +g.getAttribute("data-from"), to = +g.getAttribute("data-to"), html = "";
+    for (var i = 0; i < 50; i++) {
+      if (i < from) html += '<i class="pre"></i>';
+      else if (i < to) html += '<i class="on" style="--n:' + (i - from) + '"></i>';
+      else html += "<i></i>";
+    }
+    g.innerHTML = html;
+  });
+  function countUp(el) {
+    var from = +el.getAttribute("data-from"), to = +el.getAttribute("data-to");
+    if (reduce) { el.textContent = to; return; }
+    var t0 = null, dur = (to - from) * 38 + 300;
+    setTimeout(function () {
+      requestAnimationFrame(function step(t) {
+        if (!t0) t0 = t;
+        var k = Math.min(1, (t - t0) / dur);
+        el.textContent = Math.round(from + (to - from) * k);
+        if (k < 1) requestAnimationFrame(step);
+      });
+    }, 300);
+  }
+
+  /* 各画面が見えたときに、一度だけ自動で始まる動き */
+  var auto = {
+    2: function () { countUp($(".s2 .count")); },
+    3: function () { countUp($(".s3 .count")); },
+    13: function () {
+      later(function () { burst(["✨", "💎", "🌟"], window.innerWidth / 2, window.innerHeight * 0.5, 16); }, 700);
+    }
+  };
+
+  /* 進み具合、画面の外での一時停止、自動再生 */
+  var screens = $$(".screen"), fill = $("#fill"), pg = $("#pg"), last = screens.length - 1;
+  function setProgress(i) {
+    fill.style.width = (i / last * 100) + "%";
+    pg.textContent = i === 0 ? "スタート" : (i === last ? "ゴール" : i + " / " + last + "　あと" + (last - i));
+  }
+  setProgress(0);
+  if ("IntersectionObserver" in window) {
+    var ioVis = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        e.target.classList.toggle("vis", e.isIntersecting);
+        $$("svg", e.target).forEach(function (s) {
+          if (!s.pauseAnimations) return;
+          if (e.isIntersecting && !reduce) s.unpauseAnimations(); else s.pauseAnimations();
+        });
+      });
+    }, { threshold: 0 });
+    var ioIn = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = +e.target.getAttribute("data-i");
+        setProgress(i);
+        if (!e.target.classList.contains("in")) {
+          e.target.classList.add("in");
+          if (auto[i]) auto[i]();
+        }
+      });
+    }, { threshold: 0.5 });
+    screens.forEach(function (s) { ioVis.observe(s); ioIn.observe(s); });
+  } else {
+    screens.forEach(function (s) { s.classList.add("vis"); s.classList.add("in"); });
+    Object.keys(auto).forEach(function (k) { auto[k](); });
+  }
+
+  /* コピー（プロンプトのある画面ごと） */
+  function fallback(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); return ok;
+  }
+  $$(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = document.getElementById(btn.getAttribute("data-target")).textContent;
+      function done(ok) {
+        if (ok) { btn.textContent = "コピーしました ✔"; say("コピーしました"); setTimeout(function () { btn.textContent = "コピーする"; }, 2000); }
+        else { say("コピーできませんでした。長押しで選んでください"); }
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallback(text)); });
+        } else { done(fallback(text)); }
+      } catch (e) { done(fallback(text)); }
+    });
+  });
+
+  if (reduce) { $$("svg").forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); }); }
+})();
+</script>
+</body>
+</html>
