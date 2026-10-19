@@ -35,7 +35,7 @@ body {
 main { max-width: 760px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(56px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 h1 { font-size: clamp(24px, 6vw, 32px); line-height: 1.45; margin: 0 0 8px; padding-bottom: 14px; border-bottom: 3px solid var(--accent); }
 h2 { font-size: clamp(20px, 5vw, 24px); line-height: 1.5; margin: 52px 0 14px; padding-left: 12px; border-left: 4px solid var(--accent); }
-p { margin: 0 0 14px; }
+p { margin: 0 0 20px; }
 ul, ol { margin: 0 0 16px; padding-left: 1.5em; }
 li { margin: 0 0 8px; }
 a { color: var(--accent); text-underline-offset: 3px; }
@@ -54,6 +54,32 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 .btn-all { display: block; width: 100%; font-family: inherit; font-size: 15px; font-weight: 700; color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 12px; margin: 0 0 14px; cursor: pointer; }
 .btn-all.done { opacity: .85; }
 .btn-line { display: block; width: 100%; max-width: 420px; margin: 20px auto 0; text-align: center; text-decoration: none; background: var(--line-green); color: #fff; border-radius: 999px; padding: 15px 12px; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+
+.small { font-size: 13px; color: var(--muted); line-height: 1.8; }
+.line-top { margin: 22px auto 0; }
+.line-mid { margin: 44px auto 0; }
+.line-end { margin: 28px auto 0; }
+
+/* 動画 */
+.video { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 36px 0 0; border-radius: 12px; overflow: hidden; background: #000; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.alt { margin: 10px 0 0; text-align: center; }
+
+/* 応募の流れ（番号つきの5ステップ） */
+.steps { list-style: none; margin: 0 0 16px; padding: 0; }
+.steps li { display: grid; grid-template-columns: 36px 1fr; column-gap: 14px; margin: 0; padding: 20px 0; border-top: 1px solid var(--line); }
+.steps li:first-child { border-top: 0; padding-top: 6px; }
+.steps .num { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px; line-height: 1; }
+.steps b { display: block; font-size: 16.5px; line-height: 1.6; margin: 3px 0 4px; }
+.steps p { margin: 0; }
+
+/* 注意点（淡い黄色のブロック） */
+.notes { display: grid; gap: 12px; margin: 0 0 16px; }
+.note { background: #FFF7DB; color: #1C1C1E; border-radius: 10px; padding: 14px 16px; }
+.note b { display: block; font-size: 16px; line-height: 1.6; margin: 0 0 4px; }
+.note p { margin: 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .note { background: #3A3320; color: var(--ink); } }
+:root[data-theme="dark"] .note { background: #3A3320; color: var(--ink); }
 
 /* スマホでは、表を1行ずつのまとまりにする */
 @media (max-width: 600px) {
@@ -78,6 +104,12 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 <main>
 
 <h1>AI画像プロンプト50選 活用ガイド</h1>
+<a class="btn-line line-top" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+
+<div class="video">
+  <iframe src="https://www.youtube-nocookie.com/embed/VTwTClDVMFE?rel=0&amp;playsinline=1" title="動画" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<p class="alt small">動画が表示されない場合は、<a href="https://youtu.be/VTwTClDVMFE" target="_blank" rel="noopener noreferrer">こちら（YouTubeで見る）</a></p>
 
 <h2>はじめに</h2>
 <p>このガイドは、ChatGPTで画像を作るプロンプト50個と、その画像をお仕事に使う流れをまとめたものです。</p>
@@ -168,18 +200,15 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 
 <h2>応募から報酬を受け取るまでの流れ</h2>
 <p>クラウドワークスは、仕事を頼みたい人と受けたい人をつなぐ国内最大手の募集サイトです。画像制作の募集も日々出ています。一般的な流れは次のとおりです。</p>
-<ol>
-  <li>無料登録してプロフィールを作る。得意なこと、使えるツール（ChatGPT、Canvaなど）、対応できる時間を書きます</li>
-  <li>サンプル画像を用意する。このガイドのプロンプトで作った画像を、5〜10枚ほどまとめておきます。実績がない最初は、これが自己紹介になります</li>
-  <li>募集を探す。「バナー」「サムネイル」「画像制作」などで検索し、AI画像の利用が認められている案件を選びます</li>
-  <li>募集文を最後まで読む。納期、納品形式（PNGなど）、修正回数、AI利用の可否を確認します</li>
-  <li>応募する。何ができるか、いつまでに出せるか、サンプル画像を、短く具体的に書きます</li>
-  <li>契約して作る。採用されたら、クライアントと条件を確認して制作に入ります</li>
-  <li>納品する。指定の形式で納品し、修正があれば対応します</li>
-  <li>検収されて報酬が確定する。固定報酬の案件では、クライアントが確認（検収）すると報酬が確定します</li>
-  <li>手数料が引かれて、出金する。システム手数料が差し引かれた金額を、銀行口座に出金します</li>
+<ol class="steps">
+  <li><span class="num" aria-hidden="true">1</span><div><b>無料登録してプロフィールを作る</b><p>得意なこと、使えるツール（ChatGPT、Canvaなど）、対応できる時間を書きます</p></div></li>
+  <li><span class="num" aria-hidden="true">2</span><div><b>サンプル画像を用意する</b><p>このガイドのプロンプトで作った画像を、5〜10枚ほどまとめておきます。実績がない最初は、これが自己紹介になります</p></div></li>
+  <li><span class="num" aria-hidden="true">3</span><div><b>募集を探して、最後まで読む</b><p>「バナー」「サムネイル」「画像制作」などで検索し、AI画像の利用が認められている案件を選びます。納期、納品形式（PNGなど）、修正回数、AI利用の可否も確認します</p></div></li>
+  <li><span class="num" aria-hidden="true">4</span><div><b>応募して、契約して作る</b><p>何ができるか、いつまでに出せるか、サンプル画像を、短く具体的に書いて応募します。採用されたら、条件を確認して制作に入ります</p></div></li>
+  <li><span class="num" aria-hidden="true">5</span><div><b>納品して、報酬を受け取る</b><p>指定の形式で納品し、修正があれば対応します。固定報酬の案件では、クライアントの確認（検収）で報酬が確定し、システム手数料が引かれた金額を銀行口座に出金します</p></div></li>
 </ol>
-<p>手数料の割合や、画面の操作は変わることがあります。登録前に、クラウドワークスの公式ヘルプで最新の内容を確認してください。</p>
+<p class="small">手数料の割合や、画面の操作は変わることがあります。登録前に、クラウドワークスの公式ヘルプで最新の内容を確認してください。</p>
+<a class="btn-line line-mid" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
 
 <h2>単価の目安と現実</h2>
 <p>最初は数百円〜数千円の案件が中心で、応募者も多いのが現実です。2026年10月時点で確認できた例を並べます。</p>
@@ -202,21 +231,21 @@ td.cp { width: 1%; text-align: right; white-space: nowrap; }
 
 <h2>注意点</h2>
 <p>応募する前に、次の5つを必ず確認してください。</p>
-<ul>
-  <li>AI利用のルールを確認する。案件によって、AI画像の利用が禁止だったり、利用を伝えるよう求められたりします。募集文とクラウドワークスの規約を確認し、迷ったらクライアントに先に聞きます</li>
-  <li>実在のものに似せない。実在のロゴ、キャラクター、有名人に似た画像は使いません。トラブルの元になります</li>
-  <li>商品を実物より良く見せない。AIは商品の形やロゴを正確には描けません。実際の商品を使う案件では、クライアントの写真をもとにするか、イメージ画像として使うことを伝えます</li>
-  <li>著作権と商用利用を確認する。AIが作った画像の権利は、はっきりしない部分があります。使うAIサービスの商用利用のルールを読み、著作権の扱いを契約前にクライアントと合意しておきます</li>
-  <li>画像を作って終わりではない。バナーやLPは、文字入れとサイズ調整が必要です。Canvaなどの使い方も、あわせて身につけると案件を受けやすくなります</li>
-</ul>
-<p>また、登録前に本業の会社の規則も確認しておくと安心です。</p>
+<div class="notes">
+  <div class="note"><b>AI利用のルールを確認する</b><p>案件によって、AI画像の利用が禁止だったり、利用を伝えるよう求められたりします。募集文とクラウドワークスの規約を確認し、迷ったらクライアントに先に聞きます</p></div>
+  <div class="note"><b>実在のものに似せない</b><p>実在のロゴ、キャラクター、有名人に似た画像は使いません。トラブルの元になります</p></div>
+  <div class="note"><b>商品を実物より良く見せない</b><p>AIは商品の形やロゴを正確には描けません。実際の商品を使う案件では、クライアントの写真をもとにするか、イメージ画像として使うことを伝えます</p></div>
+  <div class="note"><b>著作権と商用利用を確認する</b><p>AIが作った画像の権利は、はっきりしない部分があります。使うAIサービスの商用利用のルールを読み、著作権の扱いを契約前にクライアントと合意しておきます</p></div>
+  <div class="note"><b>画像を作って終わりではない</b><p>バナーやLPは、文字入れとサイズ調整が必要です。Canvaなどの使い方も、あわせて身につけると案件を受けやすくなります</p></div>
+</div>
+<p class="small">また、登録前に本業の会社の規則も確認しておくと安心です。</p>
 
 <h2>次のステップ</h2>
 <p>プロンプトで画像を作り、案件に挑戦したい方向けに、公式LINEとサポート会を用意しています。</p>
 <p>サポート会は、無料です。</p>
 <p>まずはこのガイドのプロンプトを3〜5個試して、自分で作った画像をSNSに載せてみてください。それがそのまま、最初のサンプル画像になります。</p>
 <p>詳しくは、下のLINEボタンからどうぞ。</p>
-<a class="btn-line" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+<a class="btn-line line-end" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
 
 </main>
 
