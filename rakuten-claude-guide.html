@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>商品探しはClaudeに任せる</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sapphire: #1B3A8F;
+  --emerald: #0E6B57;
+  --amethyst: #5B2A86;
+  --ruby: #8C1F47;
+  --peacock: #0F6A7A;
+  --indigo: #2D2B8C;
+  --gold: #E8C06A;
+  --gold2: #D9AC4E;
+  --gold-d: #B98A2E;
+  --hair: rgba(232,192,106,.55);
+  --ivory: #FFFBF2;
+  --text: #FFF9EC;
+  --ink: #1B1630;
+  --sub: #5E5873;
+  --page: #1B1630;
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  --emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --page: #0E0B1E; }
+}
+:root[data-theme="dark"] { --page: #0E0B1E; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--text);
+  font-family: var(--font); font-weight: 400; font-size: 16px; line-height: 1.85; letter-spacing: .05em;
+  line-break: strict; word-break: auto-phrase; -webkit-text-size-adjust: 100%;
+}
+button { font-family: inherit; letter-spacing: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.k { display: inline-block; }
+.emo { font-family: var(--emoji); }
+
+/* 画面の外では、動きを止める */
+.screen:not(.vis) *, .screen:not(.vis) *::before, .screen:not(.vis) *::after { animation-play-state: paused !important; }
+
+/* 進み具合 */
+.top {
+  position: fixed; z-index: 20; left: 0; right: 0; top: 0;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 10px;
+  display: flex; align-items: center; gap: 12px; pointer-events: none;
+}
+.trk { flex: 1; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
+.trk i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #F5DA98, var(--gold2)); border-radius: 999px; transition: width .5s cubic-bezier(.3,1.1,.5,1); }
+#pg { flex: none; background: rgba(20,14,40,.72); color: var(--text); border: 1px solid var(--hair); border-radius: 999px; padding: 0 14px; font-size: 12.5px; font-weight: 700; line-height: 26px; }
+
+/* 1画面 */
+.screen { min-height: 100svh; display: flex; align-items: center; padding: 92px 22px 60px; position: relative; overflow: hidden; }
+.wrap { width: 100%; max-width: 460px; margin: 0 auto; position: relative; z-index: 1; }
+.s0 { background: linear-gradient(165deg, rgba(91,42,134,.74), rgba(27,58,143,.82)), url("data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAACwCACdASowADAAPqVGmkmmJCKhMdzN+MAUiUAU6OQpyxUrb4UViVOIHfLvDXJZ58PxtsUW2gAextWKijZT2xwalXX9T9Rpcm7xCRSzukQA/ui4F8g5jbNPxQfgG6Fg7aMhz5y6QzcdHXRD4el6jQKl4Z3Mau+F/wvMgR7aDR3t5fhELt0vGWZB9ZX+REV3aVRYEODbKZLP02kxk4HoRZGxTOIBH8n2cv/3jMxYjXmaiD75hXS1jo+HefEWGgVxx5YG7rs+vVhr+SLjvrh5OAAA") center / cover no-repeat; padding: 0; align-items: stretch; }
+.s1 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--sapphire), #14286A); }
+.s2 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--emerald), #0A4A3D); }
+.s3 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--amethyst), #3E1B62); }
+.s4 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--ruby), #5E1230); }
+.s5 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--peacock), #0A4654); }
+.s6 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--indigo), #1F1A66); }
+.s7 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--emerald), #0A4A3D); }
+.s8 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--ruby), #5E1230); }
+.s9 { background: radial-gradient(circle at 90% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--sapphire), #14286A); }
+.s10 { background: radial-gradient(circle at 10% 0%, rgba(232,192,106,.18), transparent 45%), linear-gradient(170deg, var(--peacock), #0A4654); }
+.s11, .s12 { background: radial-gradient(circle at 50% 0%, rgba(232,192,106,.22), transparent 50%), linear-gradient(170deg, var(--amethyst), #3E1B62); }
+
+h2 { margin: 0 0 12px; font-weight: 700; line-height: 1.5; letter-spacing: .08em; font-size: clamp(26px, 7.4vw, 35px); text-wrap: balance; }
+h2::before { content: ""; display: block; width: 40px; height: 2px; background: var(--gold); margin-bottom: 18px; }
+.one { margin: 0 0 22px; font-size: 16px; font-weight: 500; color: rgba(255,249,236,.88); }
+.note { margin: 12px 2px 0; font-size: 12.5px; color: rgba(255,249,236,.7); }
+.note b { color: var(--gold); font-weight: 700; }
+
+.card, .fig {
+  background: var(--ivory); color: var(--ink);
+  border: 1px solid var(--hair); border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(8,4,24,.35);
+  padding: 18px;
+}
+.fig { padding: 12px; margin-bottom: 0; }
+.fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fig svg text { font-family: var(--font); }
+.btn {
+  display: inline-block; cursor: pointer; text-decoration: none;
+  background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink);
+  border: 1px solid rgba(255,255,255,.55); border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.6);
+  padding: 13px 30px; font-size: 16.5px; font-weight: 700; letter-spacing: .08em;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.6); }
+.center { text-align: center; }
+.swapin { animation: swapin .6s cubic-bezier(.3,1.3,.5,1); }
+@keyframes swapin { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+
+/* ===== 表紙（サムネを画面いっぱいに） ===== */
+.cv { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: calc(54px + env(safe-area-inset-top, 0px)) 0 28px; }
+.thumb { position: relative; width: min(100vw, 76svh); aspect-ratio: 1 / 1; overflow: hidden; isolation: isolate; background: #2D2B8C; box-shadow: 0 18px 44px rgba(0,0,0,.5); }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 40%; animation: zoom 9s ease-in-out infinite alternate; will-change: transform; }
+@keyframes zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+.thumb::after {
+  content: ""; position: absolute; top: -10%; bottom: -10%; left: 0; width: 34%; z-index: 2; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-160%) skewX(-12deg); animation: shine 4.4s ease-in-out infinite;
+}
+@keyframes shine { 0% { transform: translateX(-160%) skewX(-12deg); } 45%, 100% { transform: translateX(420%) skewX(-12deg); } }
+.cv-body { width: 100%; max-width: 460px; padding: 22px 22px 0; text-align: center; }
+.gift { display: flex; align-items: center; gap: 14px; text-align: left; max-width: 380px; margin: 0 auto 24px; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 16px; box-shadow: 0 10px 26px rgba(8,4,24,.35); padding: 13px 16px; }
+.gift .ic { font-size: 32px; line-height: 1; flex: none; }
+.gift b { display: block; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.gift span { font-size: 12.5px; color: var(--sub); line-height: 1.6; display: block; }
+.sm { font-size: 14.5px; margin: 0 0 20px; color: rgba(255,249,236,.88); }
+
+/* ===== 1 時間の比較（自動） ===== */
+.chip { display: inline-block; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 999px; padding: 4px 18px; font-weight: 700; margin-bottom: 14px; transition: background .4s; }
+.chip.yes { background: linear-gradient(180deg, #F5DA98, var(--gold2)); }
+.track { position: relative; height: 56px; border-radius: 12px; overflow: hidden; background: repeating-linear-gradient(45deg, rgba(27,22,48,.07) 0 8px, transparent 8px 16px); border: 1px dashed var(--sub); }
+.bar { position: absolute; inset: 0 auto 0 0; width: 100%; display: flex; transition: width 1s cubic-bezier(.3,1.1,.5,1); }
+.bar span { letter-spacing: 0; height: 100%; display: grid; place-items: center; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; border-right: 2px solid var(--ivory); background: #D9D3EE; transition: width 1s cubic-bezier(.3,1.1,.5,1), background .5s; }
+.bar span:last-child { border-right: 0; }
+.legend { display: flex; justify-content: center; gap: 18px; margin-top: 12px; font-size: 12.5px; color: var(--sub); opacity: 0; transition: opacity .5s .6s; }
+.legend.show { opacity: 1; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.free { margin: 16px 0 0; text-align: center; font-weight: 500; min-height: 3.6em; color: var(--text); }
+
+/* ===== 2 5つの順番（丸が順に埋まる） ===== */
+.grp { position: relative; border: 1px dashed var(--gold-d); border-radius: 16px; padding: 22px 12px 6px; margin-top: 18px; }
+.grp:first-child { margin-top: 10px; }
+.grp.now { border-style: solid; background: linear-gradient(180deg, rgba(232,192,106,.16), rgba(232,192,106,.06)); }
+.grp .tag { position: absolute; top: -13px; left: 14px; background: var(--ivory); border: 1px solid var(--gold-d); color: var(--gold-d); border-radius: 999px; padding: 0 12px; font-size: 12px; font-weight: 700; line-height: 24px; opacity: 0; transform: translateY(4px); transition: opacity .5s, transform .5s; transition-delay: var(--t); }
+.grp.now .tag { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); border-color: var(--gold-d); }
+.s2.in .grp .tag { opacity: 1; transform: none; }
+.stp { list-style: none; margin: 0; padding: 0; }
+.stp li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; padding: 7px 0; font-size: 15px; font-weight: 500; line-height: 1.6; }
+.stp .no { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; border: 1.5px solid var(--gold-d); background: #fff; color: var(--gold-d); transition: background .4s, color .4s; transition-delay: calc(var(--n) * .32s + .3s); }
+.s2.in .stp .no { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); }
+
+/* ===== 3 そろえる場所（線が引かれる） ===== */
+.ln { fill: none; stroke: #B98A2E; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 120; stroke-dashoffset: 120; transition: stroke-dashoffset .8s ease; transition-delay: calc(var(--n) * .35s + .4s); }
+.s3.in .ln { stroke-dashoffset: 0; }
+.val { opacity: 0; transition: opacity .5s; transition-delay: calc(var(--n) * .35s + 1s); }
+.s3.in .val { opacity: 1; }
+.where { margin: 14px 0 0; padding: 0; list-style: none; font-size: 12.5px; color: rgba(255,249,236,.78); line-height: 1.8; }
+.where b { color: var(--gold); font-weight: 700; }
+
+/* ===== 4 名前だけ伝える（✕に線、○が出る） ===== */
+.say { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; }
+.say + .say { margin-top: 16px; }
+.mk { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 18px; color: #fff; }
+.bad .mk { background: var(--ruby); }
+.good .mk { background: var(--emerald); }
+.bub { position: relative; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 14.5px; line-height: 1.75; box-shadow: 0 8px 20px rgba(8,4,24,.3); }
+.bub small { display: block; font-size: 11.5px; color: var(--sub); font-weight: 700; margin-bottom: 2px; }
+.bad .bub { transition: opacity .5s 1.6s; }
+.bad .x { background: linear-gradient(var(--ruby), var(--ruby)) no-repeat 0 55% / 0% 2.5px; -webkit-box-decoration-break: clone; box-decoration-break: clone; transition: background-size .7s cubic-bezier(.5,0,.3,1) .9s; }
+.s4.in .bad .x { background-size: 100% 2.5px; }
+.s4.in .bad .bub { opacity: .6; }
+.good { opacity: 0; transform: translateY(10px); transition: opacity .6s 2s, transform .6s 2s; }
+.s4.in .good { opacity: 1; transform: none; }
+.var { display: inline-block; background: rgba(232,192,106,.32); border-radius: 6px; padding: 0 6px; font-weight: 700; letter-spacing: .02em; }
+.fake { display: inline-block; letter-spacing: .02em; color: var(--ruby); font-weight: 700; }
+.keep { margin-top: 18px; text-align: center; font-size: 13px; color: rgba(255,249,236,.85); }
+.keep .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
+.keep .row span { background: rgba(255,251,242,.12); border: 1px solid var(--hair); border-radius: 999px; padding: 2px 14px; font-weight: 700; color: var(--text); }
+
+/* ===== 5〜7 プロンプト ===== */
+.pstep { display: flex; gap: 6px; margin: 0 0 14px; }
+.pstep span { flex: 1; text-align: center; font-size: 12px; font-weight: 700; line-height: 1.5; padding: 6px 4px; border-radius: 10px; border: 1px solid rgba(255,249,236,.28); color: rgba(255,249,236,.6); }
+.pstep span.cur { border-color: var(--gold); color: var(--ink); background: linear-gradient(180deg, #F5DA98, var(--gold2)); transform: scale(.94); transition: transform .5s cubic-bezier(.3,1.6,.5,1) .3s; }
+.screen.in .pstep span.cur { transform: none; }
+.prompt pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font); font-size: 14px; line-height: 1.9; color: var(--ink); }
+.copyrow { margin-top: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+.chips span { background: rgba(255,251,242,.12); border: 1px solid var(--hair); border-radius: 999px; padding: 2px 12px; font-size: 13px; font-weight: 500; }
+
+/* ===== 8 投稿の見本（印が順につく） ===== */
+.post { padding: 16px 16px 12px; }
+.post-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.post-h .av { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(160deg, var(--amethyst), var(--sapphire)); flex: none; }
+.post-h b { font-size: 14px; display: block; line-height: 1.4; }
+.post-h small { font-size: 11.5px; color: var(--sub); display: block; line-height: 1.4; }
+.post p { margin: 0 0 6px; font-size: 14.5px; line-height: 1.8; }
+.post mark { color: inherit; background: linear-gradient(#F5DA98, #F5DA98) no-repeat 0 88% / 0% 46%; transition: background-size .5s ease; transition-delay: calc(var(--n) * .7s + .4s); border-radius: 2px; }
+.s8.in .post mark { background-size: 100% 46%; }
+.nb { display: inline-grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: var(--ruby); color: #fff; font-size: 11px; font-weight: 700; font-style: normal; margin-right: 4px; vertical-align: 1px; letter-spacing: 0; transform: scale(0); transition: transform .35s cubic-bezier(.3,1.6,.5,1); transition-delay: calc(var(--n) * .7s + .4s); }
+.s8.in .nb { transform: scale(1); }
+.lnk { color: var(--sapphire); font-weight: 700; }
+.pts { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.pts li { display: grid; grid-template-columns: 26px 1fr; gap: 8px; align-items: center; font-size: 14.5px; font-weight: 500; line-height: 1.6; opacity: .35; transition: opacity .5s; transition-delay: calc(var(--n) * .7s + .5s); }
+.pts li .nb { transform: none; }
+.s8.in .pts li { opacity: 1; }
+
+/* ===== 9 確認（一覧） ===== */
+.chk { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.chk li { display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: start; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 16px; box-shadow: 0 8px 20px rgba(8,4,24,.3); padding: 14px 16px; }
+.chk .emo { font-size: 30px; line-height: 1.4; text-align: center; }
+.chk b { display: block; font-weight: 700; font-size: 15.5px; line-height: 1.55; }
+.chk p { margin: 2px 0 0; font-size: 14px; color: var(--sub); line-height: 1.75; }
+
+/* ===== 10 今日（自動） ===== */
+.todo { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 12px; }
+.todo li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: center; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 14px; box-shadow: 0 6px 14px rgba(8,4,24,.28); padding: 13px 14px; font-size: 15.5px; line-height: 1.6; }
+.todo .box { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1.5px solid var(--gold-d); display: grid; place-items: center; transition: background .3s, border-color .3s; transition-delay: calc(var(--n) * .3s + .4s); }
+.todo .box svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 4; stroke-dasharray: 26; stroke-dashoffset: 26; transition: stroke-dashoffset .35s ease; transition-delay: calc(var(--n) * .3s + .5s); }
+.s10.in .todo .box { background: var(--emerald); border-color: var(--emerald); }
+.s10.in .todo .box svg { stroke-dashoffset: 0; }
+.fin { text-align: center; font-weight: 500; font-size: 16.5px; margin: 0; }
+
+/* ===== 11 動画 ===== */
+.video { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: #0E0B1E; border: 1px solid var(--hair); box-shadow: 0 14px 34px rgba(8,4,24,.4); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.alt { display: block; margin-top: 12px; text-align: center; font-size: 12.5px; color: rgba(255,249,236,.75); }
+.alt a { color: var(--gold); }
+
+/* ===== 12 最後の画面（CTA） ===== */
+.ctabox { background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); border-radius: 24px; box-shadow: 0 18px 44px rgba(8,4,24,.45); padding: 12px; }
+.ctabox img { display: block; width: 100%; height: auto; border-radius: 14px; outline: 1px solid rgba(185,138,46,.45); outline-offset: -1px; }
+.ctatxt { margin: 16px 8px 16px; font-size: 15px; line-height: 1.95; }
+.nowfree { margin: 18px 4px 12px; text-align: center; font-weight: 700; font-size: 16px; line-height: 1.6; }
+.btn.big { margin-top: 0; position: relative; overflow: hidden; display: block; width: 100%; text-align: center; padding: 18px 12px; font-size: 18px; border-radius: 18px; isolation: isolate; }
+.btn.big::after {
+  content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 30%; z-index: -1; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.75), transparent);
+  transform: translateX(-160%) skewX(-14deg); animation: btnshine 3.6s ease-in-out infinite;
+}
+@keyframes btnshine { 0% { transform: translateX(-160%) skewX(-14deg); } 40%, 100% { transform: translateX(480%) skewX(-14deg); } }
+.fine { margin-top: 26px; font-size: 12px; color: rgba(255,249,236,.7); line-height: 1.9; }
+.fine p { margin: 0 0 4px; }
+
+.piece { position: fixed; z-index: 40; pointer-events: none; font-size: 26px; line-height: 1; font-family: var(--emoji); }
+.toast { position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 24px); opacity: 0; background: var(--ivory); color: var(--ink); border: 1px solid var(--hair); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 999px; transition: transform .25s, opacity .25s; pointer-events: none; z-index: 50; }
+.toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .grp .tag, .val, .good { opacity: 1; transform: none; }
+  .ln { stroke-dashoffset: 0; }
+  .stp .no { background: linear-gradient(180deg, #F5DA98, var(--gold2)); color: var(--ink); }
+  .bad .bub { opacity: .6; } .bad .x { background-size: 100% 2.5px; }
+  .post mark { background-size: 100% 46%; } .nb { transform: none; } .pts li { opacity: 1; }
+  .pstep span.cur { transform: none; }
+  .todo .box { background: var(--emerald); border-color: var(--emerald); } .todo .box svg { stroke-dashoffset: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="trk"><i id="fill"></i></div><span id="pg">スタート</span></div>
+
+<!-- 0 表紙 -->
+<section class="screen s0 vis" data-i="0">
+  <div class="cv">
+    <div class="thumb">
+      <img src="img/rakuten-claude-guide/cover.webp" width="1080" height="1080" alt="商品探しは、Claudeに任せる。楽天アフィ 自動化のはじめ方" fetchpriority="high">
+    </div>
+    <div class="cv-body">
+      <div class="gift">
+        <span class="ic emo">🎁</span>
+        <div><b>最後に、無料の教科書のご案内があります</b><span>『AIマネタイズの教科書』を、公式LINEで受け取れます</span></div>
+      </div>
+      <p class="sm">1画面に、ひとつだけ。全部で12枚です。</p>
+      <a class="btn" href="#s1">スタート ▼</a>
+    </div>
+  </div>
+</section>
+
+<!-- 1 時間の比較 -->
+<section class="screen s1" id="s1" data-i="1">
+  <div class="wrap">
+    <h2 id="h1t"><span class="k">商品探しで、</span><span class="k">1時間が</span><span class="k">消えていく</span></h2>
+    <p class="one" id="h1p"><span class="k">探す・比べる・書くを、</span><span class="k">ぜんぶ自分でやると…</span></p>
+    <span class="chip" id="tchip">Claudeなし</span>
+    <div class="card" style="padding:14px">
+      <div class="track"><div class="bar" id="tbar">
+        <span style="width:28%">探す</span><span style="width:18%">比べる</span><span style="width:32%">書く</span><span style="width:11%">確認</span><span style="width:11%">予約</span>
+      </div></div>
+      <div class="legend" id="legend"><span><i style="background:#E8C06A"></i>Claudeにお願い</span><span><i style="background:#1B3A8F"></i>自分の手で</span></div>
+    </div>
+    <p class="free" id="tmsg">毎回ゼロから調べるので、続きません。</p>
+    <p class="note">※ 長さはイメージです。かかる時間は、人によって違います。</p>
+  </div>
+</section>
+
+<!-- 2 5つの順番 -->
+<section class="screen s2" data-i="2">
+  <div class="wrap">
+    <h2><span class="k">やることは、</span><span class="k">5つの順番だけ</span></h2>
+    <p class="one"><span class="k">手間がかかるのは、</span><span class="k">最初の1回だけです。</span></p>
+    <div class="card">
+      <div class="grp" style="--t:1.4s">
+        <span class="tag">最初の1回だけ</span>
+        <ol class="stp">
+          <li style="--n:0"><span class="no">1</span><span>楽天アフィリエイトIDを確かめる</span></li>
+          <li style="--n:1"><span class="no">2</span><span>アプリIDとアクセスキーを発行する</span></li>
+          <li style="--n:2"><span class="no">3</span><span>3つを、自分だけの場所に控える</span></li>
+        </ol>
+      </div>
+      <div class="grp now" style="--t:2.1s">
+        <span class="tag">次からは、ここだけ</span>
+        <ol class="stp">
+          <li style="--n:3"><span class="no">4</span><span>Claudeに、文章を貼ってお願いする</span></li>
+          <li style="--n:4"><span class="no">5</span><span>中身を確かめて、投稿・予約する</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 そろえる場所 -->
+<section class="screen s3" data-i="3">
+  <div class="wrap">
+    <h2><span class="k">控えるのは、</span><span class="k">3つの情報</span></h2>
+    <p class="one"><span class="k">2つの無料サイトで、</span><span class="k">そろいます。</span></p>
+    <div class="fig">
+      <svg viewBox="0 0 320 252" role="img" aria-label="楽天アフィリエイトからアフィリエイトID、楽天ウェブサービスからアプリIDとアクセスキーを受け取る図">
+        <rect x="6" y="8" width="150" height="60" rx="12" fill="#1B3A8F"/>
+        <text x="81" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">楽天アフィリエイト</text>
+        <text x="81" y="55" text-anchor="middle" font-size="11" fill="#F5DA98">無料</text>
+        <rect x="164" y="8" width="150" height="60" rx="12" fill="#0E6B57"/>
+        <text x="239" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">楽天ウェブサービス</text>
+        <text x="239" y="55" text-anchor="middle" font-size="11" fill="#F5DA98">無料</text>
+        <path class="ln" style="--n:0" d="M81 68 C81 110 55 110 55 146"/>
+        <path class="ln" style="--n:1" d="M239 68 C239 110 160 110 160 146"/>
+        <path class="ln" style="--n:2" d="M239 68 C239 110 265 110 265 146"/>
+        <g class="val" style="--n:0">
+          <rect x="8" y="148" width="94" height="62" rx="12" fill="#FFF3D6" stroke="#B98A2E" stroke-width="1.5"/>
+          <text x="55" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#1B1630">アフィリエイト</text>
+          <text x="55" y="194" text-anchor="middle" font-size="12" font-weight="700" fill="#1B1630">ID</text>
+          <text x="55" y="234" text-anchor="middle" font-size="11" fill="#5E5873">成果のひもづけ</text>
+        </g>
+        <g class="val" style="--n:1">
+          <rect x="113" y="148" width="94" height="62" rx="12" fill="#FFF3D6" stroke="#B98A2E" stroke-width="1.5"/>
+          <text x="160" y="184" text-anchor="middle" font-size="13" font-weight="700" fill="#1B1630">アプリID</text>
+          <text x="160" y="234" text-anchor="middle" font-size="11" fill="#5E5873">商品情報を使う</text>
+        </g>
+        <g class="val" style="--n:2">
+          <rect x="218" y="148" width="94" height="62" rx="12" fill="#8C1F47"/>
+          <text x="265" y="184" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">アクセスキー</text>
+          <text x="265" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#8C1F47">人に見せない</text>
+        </g>
+      </svg>
+    </div>
+    <ul class="where">
+      <li><b>楽天アフィリエイト</b>　affiliate.rakuten.co.jp</li>
+      <li><b>楽天ウェブサービス</b>　webservice.rakuten.co.jp</li>
+    </ul>
+    <p class="note">※ アプリ名は「（商品リサーチ用）」など、あとで見て分かる名前で大丈夫です。</p>
+  </div>
+</section>
+
+<!-- 4 名前だけ伝える -->
+<section class="screen s4" data-i="4">
+  <div class="wrap">
+    <h2><span class="k">Claudeには、</span><span class="k">名前だけ伝える</span></h2>
+    <p class="one"><span class="k">3つの中身は、</span><span class="k">会話に貼りません。</span></p>
+    <div class="say bad">
+      <span class="mk">✕</span>
+      <div class="bub"><small>会話に、中身を貼る</small><span class="x">アクセスキーは<span class="fake">「1a2b3c4d…」</span>です</span></div>
+    </div>
+    <div class="say good">
+      <span class="mk">○</span>
+      <div class="bub"><small>会話には、名前だけ</small>アクセスキーは <span class="var">RAKUTEN_ACCESS_KEY</span> を使ってください</div>
+    </div>
+    <div class="keep">中身は、こちらにしまっておきます
+      <div class="row"><span>パソコンの設定（環境変数）</span><span>パスワード管理アプリ</span></div>
+    </div>
+    <p class="note">※ 3つが写った画面を、SNSに載せないよう気をつけましょう。</p>
+  </div>
+</section>
+
+<!-- 5 プロンプト① 準備 -->
+<section class="screen s5" data-i="5">
+  <div class="wrap">
+    <div class="pstep" aria-hidden="true"><span class="cur">① 準備</span><span>② 1商品</span><span>③ ジャンル</span></div>
+    <h2><span class="k">まずは、</span><span class="k">準備をお願いする</span></h2>
+    <p class="one"><span class="k">最初に1回だけ、</span><span class="k">これを貼ります。</span></p>
+    <div class="card prompt">
+      <pre id="pr1">楽天の商品情報を使って、アフィリエイトリンク入りのSNS投稿文を作れるように、準備を手伝ってください。
+
+【守ってほしいこと】
+・楽天アフィリエイトID、アプリID、アクセスキーの中身は、この会話に書きません
+・3つとも「環境変数」に入っている前提で進めてください
+・回答、コード、ログのどこにも、中身を表示しないでください
+・例を書くときは、本物の値ではなく仮の文字を使ってください
+
+【使う名前】
+・RAKUTEN_AFFILIATE_ID（アフィリエイトID）
+・RAKUTEN_APP_ID（アプリID）
+・RAKUTEN_ACCESS_KEY（アクセスキー）
+
+【ゴール】
+楽天で商品を調べて、アフィリエイトリンク付きの投稿文を作れるようになること。
+手順は、ひとつずつ短く教えてください。</pre>
+    </div>
+    <div class="copyrow center"><button class="btn copy" data-target="pr1">コピーする</button></div>
+  </div>
+</section>
+
+<!-- 6 プロンプト② 1商品 -->
+<section class="screen s6" data-i="6">
+  <div class="wrap">
+    <div class="pstep" aria-hidden="true"><span>① 準備</span><span class="cur">② 1商品</span><span>③ ジャンル</span></div>
+    <h2><span class="k">商品が</span><span class="k">決まっているなら</span></h2>
+    <p class="one"><span class="k">（　）を書きかえて、</span><span class="k">貼るだけです。</span></p>
+    <div class="card prompt">
+      <pre id="pr2">楽天で「（紹介したい商品）」に近い商品を探し、紹介しやすいものを1つ選んでください。
+選んだ商品のアフィリエイトリンクと、（Threads）向けの投稿文を作ってください。
+
+【守ってほしいこと】
+・ID、アプリID、アクセスキーの中身は書きません。環境変数 RAKUTEN_AFFILIATE_ID／RAKUTEN_APP_ID／RAKUTEN_ACCESS_KEY を使ってください
+・中身は、回答にも投稿文にも出さないでください
+・設定されていなければ、値を貼るよう求めずに「先に設定してください」と教えてください
+
+【投稿文のルール】
+・投稿は（明日の20時）の予定
+・最初の一文で、興味を持ってもらう
+・あおらず、誠実な言い方にする
+・「#PR」か「広告」を必ず入れる
+・使っていない商品を「使ってみた」と書かない
+・価格は変わるので、言い切らない
+
+【出してほしい形】
+商品名／おすすめの理由／投稿文／アフィリエイトリンク／投稿前に確かめること</pre>
+    </div>
+    <div class="copyrow center"><button class="btn copy" data-target="pr2">コピーする</button></div>
+  </div>
+</section>
+
+<!-- 7 プロンプト③ ジャンル -->
+<section class="screen s7" data-i="7">
+  <div class="wrap">
+    <div class="pstep" aria-hidden="true"><span>① 準備</span><span>② 1商品</span><span class="cur">③ ジャンル</span></div>
+    <h2><span class="k">ジャンルだけ</span><span class="k">決めたなら</span></h2>
+    <p class="one"><span class="k">慣れてきたら、</span><span class="k">商品選びごと任せます。</span></p>
+    <div class="card prompt">
+      <pre id="pr3">楽天の「（ジャンル名）」の中から、SNSで紹介しやすい商品を3つ選んで調べてください。
+
+【守ってほしいこと】
+・ID、アプリID、アクセスキーの中身は書きません。環境変数 RAKUTEN_AFFILIATE_ID／RAKUTEN_APP_ID／RAKUTEN_ACCESS_KEY を使ってください
+・中身は、どこにも表示しないでください
+
+【選び方】
+・初めてでも紹介しやすい
+・「悩みが解決する」形の投稿にできる
+・レビューの数と評価を参考にする
+・アフィリエイトリンクを作れる
+
+【商品ごとに教えてほしいこと】
+1. 商品名
+2. 選んだ理由
+3. どんな人に向いているか
+4. （Threads）向けの投稿文（「#PR」か「広告」を入れる）
+5. 投稿前に確かめること</pre>
+    </div>
+    <div class="copyrow center"><button class="btn copy" data-target="pr3">コピーする</button></div>
+    <div class="chips" aria-label="ジャンル名の例"><span>美容家電</span><span>キッチン用品</span><span>日用品</span><span>防災グッズ</span><span>旅行グッズ</span><span>育児グッズ</span></div>
+  </div>
+</section>
+
+<!-- 8 予約の前に -->
+<section class="screen s8" data-i="8">
+  <div class="wrap">
+    <h2><span class="k">予約の前に、</span><span class="k">4か所だけ見る</span></h2>
+    <p class="one"><span class="k">確かめてから、</span><span class="k">予約ツールに貼ります。</span></p>
+    <div class="card post">
+      <div class="post-h"><span class="av"></span><div><b>あなたの投稿</b><small>明日 20:00 に予約</small></div></div>
+      <p><i class="nb" style="--n:0">1</i><mark style="--n:0">#PR</mark> 朝の（悩み）が、少しラクになりそうなアイテムです。</p>
+      <p><i class="nb" style="--n:1">2</i><mark style="--n:1">レビューでは</mark>「（よく見かける声）」が多めでした。</p>
+      <p><i class="nb" style="--n:2">3</i><mark style="--n:2">価格は、投稿した時点のものです。</mark></p>
+      <p class="lnk"><i class="nb" style="--n:3">4</i><mark style="--n:3">（商品ページへのリンク）</mark></p>
+    </div>
+    <ol class="pts">
+      <li style="--n:0"><i class="nb">1</i><span>「#PR」か「広告」を入れる</span></li>
+      <li style="--n:1"><i class="nb">2</i><span>使っていない物を「使ってみた」と書かない</span></li>
+      <li style="--n:2"><i class="nb">3</i><span>価格は、言い切らない</span></li>
+      <li style="--n:3"><i class="nb">4</i><span>リンクは、自分で開いて確かめる</span></li>
+    </ol>
+    <p class="note">※ 予約ツール（Typefullyなど）では、投稿文とリンクを貼り、日時を決めて予約します。</p>
+  </div>
+</section>
+
+<!-- 9 会社員の確認 -->
+<section class="screen s9" data-i="9">
+  <div class="wrap">
+    <h2><span class="k">会社員は、</span><span class="k">始める前に3つ</span></h2>
+    <p class="one"><span class="k">この順番で確かめておくと、</span><span class="k">安心です。</span></p>
+    <ul class="chk">
+      <li><span class="emo">📄</span><div><b>1. 就業規則を読む</b><p>副業してよいか、条件はあるかを見ます。</p></div></li>
+      <li><span class="emo">🏢</span><div><b>2. 届け出がいるか聞く</b><p>必要なら、始める前に出しておきます。</p></div></li>
+      <li><span class="emo">🧾</span><div><b>3. 年20万円を超えたら申告</b><p>副業の所得が年間20万円を超えると、確定申告が必要になるのが目安です。くわしくは、税務署や専門家にご確認ください。</p></div></li>
+    </ul>
+    <p class="note">※ 楽天アフィリエイトと、投稿するSNSのルールも、ときどき見直しましょう。</p>
+  </div>
+</section>
+
+<!-- 10 今日 -->
+<section class="screen s10" data-i="10">
+  <div class="wrap">
+    <h2><span class="k">今日やること、</span><span class="k">4つだけ</span></h2>
+    <p class="one"><span class="k">ぜんぶ終わらなくても、</span><span class="k">大丈夫です。</span></p>
+    <ul class="todo">
+      <li style="--n:0"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>楽天アフィリエイトIDを確かめる</span></li>
+      <li style="--n:1"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>アプリIDとアクセスキーを発行する</span></li>
+      <li style="--n:2"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>3つを、自分だけのメモにしまう</span></li>
+      <li style="--n:3"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span>気になる商品を、ひとつ決める</span></li>
+    </ul>
+    <p class="fin">まずは1商品から。<br>慣れたら、ジャンルで広げます。</p>
+  </div>
+</section>
+
+<!-- 11 動画 -->
+<section class="screen s11" data-i="11">
+  <div class="wrap">
+    <h2><span class="k">動画でも、</span><span class="k">お話ししています</span></h2>
+    <p class="one"><span class="k">見終わったら、</span><span class="k">下のボタンから進んでください。</span></p>
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/VTwTClDVMFE?rel=0&amp;playsinline=1" title="動画でも、お話ししています" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p class="alt">動画が表示されない場合は、<a href="https://youtu.be/VTwTClDVMFE" target="_blank" rel="noopener noreferrer">こちら（YouTubeで見る）</a></p>
+  </div>
+</section>
+
+<!-- 12 最後の画面 -->
+<section class="screen s12" data-i="12">
+  <div class="wrap">
+    <div class="ctabox">
+      <img src="img/common/textbook-cover.webp" width="1200" height="676" alt="AIマネタイズの教科書" loading="lazy" decoding="async">
+      <p class="ctatxt"><span class="k">商品探しを</span><span class="k">Claudeに</span><span class="k">任せられると、</span><span class="k">空いた時間を</span><span class="k">「発信」に</span><span class="k">まわせます。</span><span class="k">この先の</span><span class="k">進め方は、</span><span class="k">僕が</span><span class="k">ゼロから</span><span class="k">試してきた</span><span class="k">順番で、</span><span class="k">無料の</span><span class="k">『AIマネタイズの教科書』に</span><span class="k">まとめました。</span><span class="k">次の一歩に</span><span class="k">迷ったときの、</span><span class="k">地図に</span><span class="k">してください。</span></p>
+      <img src="img/common/textbook-contents.webp" width="1122" height="1402" alt="教科書の目次：第1章 いま一番始めやすいAIマネタイズ手法、第2章 ChatGPT収益化プロンプト3選、第3章 AIマネタイズ神テンプレート、第4章 マネタイズのための生成AIツール3選、第5章 AI×SNSで収益を生むリアル事例、最終章 特別特典" loading="lazy" decoding="async">
+      <p class="nowfree"><span class="k">今だけ、</span><span class="k">公式LINEで</span><span class="k">無料プレゼント中です</span></p>
+      <a class="btn big" id="lineBtn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener noreferrer">公式LINEで無料で受け取る</a>
+    </div>
+    <div class="fine">
+      <p>※ 成果や収益を保証するものではありません。</p>
+      <p>※ 税金や会社のきまりは、状況によって異なります。</p>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* 紙吹雪（金色系） */
+  function burst(emojis, x, y, n) {
+    if (reduce) return;
+    n = n || 12;
+    for (var k = 0; k < n; k++) {
+      var p = document.createElement("span");
+      p.className = "piece";
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = x + "px"; p.style.top = y + "px";
+      document.body.appendChild(p);
+      var ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * 120;
+      var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 50;
+      if (p.animate) {
+        var a = p.animate([
+          { transform: "translate(-50%,-50%) scale(.4) rotate(0deg)", opacity: 1 },
+          { transform: "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) scale(1.15) rotate(" + (Math.random() * 300 - 150) + "deg)", opacity: 1, offset: .55 },
+          { transform: "translate(calc(-50% + " + dx * 1.1 + "px), calc(-50% + " + (dy + 100) + "px)) scale(.8) rotate(" + (Math.random() * 400 - 200) + "deg)", opacity: 0 }
+        ], { duration: 950 + Math.random() * 400, easing: "cubic-bezier(.2,.7,.3,1)" });
+        a.onfinish = (function (el) { return function () { el.remove(); }; })(p);
+      } else { p.remove(); }
+    }
+  }
+  var toast = $("#toast"), tt;
+  function say(m) { toast.textContent = m; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("show"); }, 1800); }
+  function later(fn, ms) { if (reduce) fn(); else setTimeout(fn, ms); }
+  function swap(el) { el.classList.remove("swapin"); void el.offsetWidth; el.classList.add("swapin"); }
+
+  /* 各画面が見えたときに、一度だけ自動で始まる動き */
+  var auto = {
+    1: function () {
+      var GOLDC = "#E8C06A", SAPH = "#1B3A8F";
+      var bar = $("#tbar"), segs = $$("span", bar);
+      var d = { w: [15, 0, 0, 10, 10], bg: [GOLDC, GOLDC, GOLDC, SAPH, SAPH], names: ["Claude", "", "", "確認", "予約"], total: 35 };
+      later(function () {
+        segs.forEach(function (s, i) {
+          s.style.width = (d.w[i] / d.total * 100) + "%";
+          s.style.background = d.bg[i];
+          s.style.color = d.bg[i] === SAPH ? "#fff" : "#1B1630";
+          s.style.borderRightWidth = d.w[i] ? "" : "0";
+          s.textContent = d.names[i];
+        });
+        bar.style.width = d.total + "%";
+        var chip = $("#tchip"); chip.textContent = "Claudeあり"; chip.classList.add("yes");
+        $("#legend").classList.add("show");
+        var t = $("#h1t"), p = $("#h1p"), m = $("#tmsg");
+        t.innerHTML = '<span class="k">残る作業は、</span><span class="k">確認と予約だけ</span>';
+        p.innerHTML = '<span class="k">探す・比べる・書くは、</span><span class="k">Claudeに</span><span class="k">お願いできます。</span>';
+        m.innerHTML = '<span class="k">あなたが手を動かすのは、</span><span class="k">確かめるところだけ。</span>';
+        [t, p, m].forEach(swap);
+      }, 1800);
+    },
+    12: function () {
+      later(function () { burst(["✨", "💎", "🌟"], window.innerWidth / 2, window.innerHeight * 0.5, 16); }, 700);
+    }
+  };
+
+  /* 進み具合、画面の外での一時停止、自動再生 */
+  var screens = $$(".screen"), fill = $("#fill"), pg = $("#pg"), last = screens.length - 1;
+  function setProgress(i) {
+    fill.style.width = (i / last * 100) + "%";
+    pg.textContent = i === 0 ? "スタート" : (i === last ? "ゴール" : i + " / " + last + "　あと" + (last - i));
+  }
+  setProgress(0);
+  if ("IntersectionObserver" in window) {
+    var ioVis = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        e.target.classList.toggle("vis", e.isIntersecting);
+        $$("svg", e.target).forEach(function (s) {
+          if (!s.pauseAnimations) return;
+          if (e.isIntersecting && !reduce) s.unpauseAnimations(); else s.pauseAnimations();
+        });
+      });
+    }, { threshold: 0 });
+    var ioIn = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = +e.target.getAttribute("data-i");
+        setProgress(i);
+        if (!e.target.classList.contains("in")) {
+          e.target.classList.add("in");
+          if (auto[i]) auto[i]();
+        }
+      });
+    }, { threshold: 0.5 });
+    screens.forEach(function (s) { ioVis.observe(s); ioIn.observe(s); });
+  } else {
+    screens.forEach(function (s) { s.classList.add("vis"); s.classList.add("in"); });
+    Object.keys(auto).forEach(function (k) { auto[k](); });
+  }
+
+  /* コピー（プロンプトのある画面ごと） */
+  function fallback(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); return ok;
+  }
+  $$(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = document.getElementById(btn.getAttribute("data-target")).textContent;
+      function done(ok) {
+        if (ok) { btn.textContent = "コピーしました ✔"; say("コピーしました"); setTimeout(function () { btn.textContent = "コピーする"; }, 2000); }
+        else { say("コピーできませんでした。長押しで選んでください"); }
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallback(text)); });
+        } else { done(fallback(text)); }
+      } catch (e) { done(fallback(text)); }
+    });
+  });
+
+  if (reduce) { $$("svg").forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); }); }
+})();
+</script>
+</body>
+</html>
