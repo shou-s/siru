@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026年版 LINEスタンプ穴場市場の見つけ方</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pearl:#FFFBF3;
+  --ink:#2B2233;
+  --muted:#6E6475;
+  --gold:#C9A04A;
+  --gold-deep:#9A7A2E;
+  --gold-soft:#F3E3BA;
+  --ruby:#A3203F;
+  --emerald:#0E6A58;
+  --sapphire:#23479E;
+  --amethyst:#5E3A94;
+  --serif:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--pearl);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+.wrap{max-width:560px;margin:0 auto;padding:0 22px}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(255,251,243,.85);backdrop-filter:blur(6px)}
+.progress-track{height:5px;background:rgba(201,160,74,.18)}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--ruby),var(--amethyst),var(--sapphire),var(--emerald),var(--gold));transition:width .15s linear}
+
+/* hero */
+.hero{padding-top:calc(env(safe-area-inset-top,0px) + 5px)}
+.hero-img{position:relative;overflow:hidden;background:#fff}
+.hero-img img{width:100%;animation:breathe 9s ease-in-out infinite alternate}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,236,170,.55) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.6s ease-in-out 0.6s infinite}
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes shine{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+.hero-copy{padding-top:30px;padding-bottom:10px;text-align:center}
+.hero-kicker{display:inline-block;font-weight:700;font-size:14px;color:var(--gold-deep);border:1.5px solid var(--gold);border-radius:999px;padding:4px 16px;margin-bottom:16px;background:#fff}
+.hero-title{font-family:var(--serif);font-weight:800;font-size:clamp(30px,8.4vw,44px);line-height:1.3;letter-spacing:.02em}
+.hero-title .line{display:block;opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+.hero-title .line:nth-child(2){animation-delay:.25s;background:linear-gradient(100deg,var(--gold-deep),#E7C36B 45%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes rise{to{opacity:1;transform:none}}
+.gift{margin:26px auto 0;background:#fff;border-radius:22px;padding:20px 20px 18px;border:1.5px solid var(--gold-soft);box-shadow:0 10px 30px -18px rgba(94,58,148,.5);text-align:left;opacity:0;animation:rise .8s .7s forwards}
+.gift p{font-weight:700;font-size:15px;margin-bottom:10px}
+.gift ul{list-style:none;display:grid;gap:8px}
+.gift li{display:flex;gap:10px;align-items:center;font-size:15px}
+.gem{flex:none;width:14px;height:14px;transform:rotate(45deg);border-radius:3px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)}
+.g-ruby{background:var(--ruby)}.g-sap{background:var(--sapphire)}.g-em{background:var(--emerald)}.g-am{background:var(--amethyst)}
+.scroll-hint{text-align:center;color:var(--muted);font-size:13px;margin:26px 0 8px}
+.scroll-hint span{display:block;margin:6px auto 0;width:2px;height:28px;background:linear-gradient(var(--gold),transparent);animation:drip 1.6s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* jewel panels */
+.panel{color:#fff;padding:64px 0 60px;position:relative;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 85% 0%,rgba(255,255,255,.18),transparent 60%);pointer-events:none}
+.p-ruby{background:linear-gradient(160deg,#B8284B,#7A1430)}
+.p-emerald{background:linear-gradient(160deg,#138068,#0A4C40)}
+.p-sapphire{background:linear-gradient(160deg,#2B55B8,#172F70)}
+.panel h2{font-family:var(--serif);font-weight:800;font-size:clamp(25px,6.8vw,34px);line-height:1.45;margin-bottom:18px}
+.panel p{font-size:16px;opacity:.93}
+.panel .goldline{width:44px;height:3px;background:linear-gradient(90deg,#F5D98A,var(--gold));border-radius:2px;margin-bottom:20px}
+
+/* crowd */
+.crowd{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:28px 0 22px}
+.crowd div{aspect-ratio:1;border-radius:14px;background:rgba(255,255,255,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:clamp(9px,2.4vw,11px);font-weight:700;line-height:1.2;opacity:0;transform:scale(.6)}
+.crowd div b{font-size:clamp(18px,5vw,24px);font-weight:400;margin-bottom:2px}
+.in .crowd div{animation:pop .45s cubic-bezier(.3,1.6,.5,1) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.crowd-note{font-size:14px;text-align:center;opacity:.85}
+
+/* phrase rotator */
+.rotator{margin:30px 0 8px;background:#fff;color:var(--ink);border-radius:24px;padding:22px 20px 24px;box-shadow:0 18px 40px -20px rgba(0,0,0,.45)}
+.rot-job{font-size:14px;font-weight:700;color:var(--emerald);min-height:1.6em}
+.rot-bubble{margin-top:10px;display:inline-block;background:var(--gold-soft);border-radius:18px 18px 18px 4px;padding:12px 18px;font-weight:900;font-size:clamp(20px,5.6vw,26px);min-height:1.9em;min-width:4em}
+.caret{display:inline-block;width:2px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.rot-foot{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* counter */
+.count-box{margin:30px 0 18px;text-align:center}
+.count{font-family:var(--serif);font-weight:800;font-size:clamp(64px,19vw,96px);line-height:1;letter-spacing:.01em;color:#F5D98A}
+.count-unit{font-size:15px;opacity:.9;margin-top:6px}
+.stars{font-size:22px;letter-spacing:6px;color:#F5D98A;margin-top:10px}
+.memo{background:rgba(255,255,255,.12);border-radius:16px;padding:16px 18px;font-size:15px;margin-top:22px;border:1px solid rgba(245,217,138,.35)}
+
+/* steps */
+.steps{padding:64px 0 20px}
+.steps-head{font-family:var(--serif);font-weight:800;font-size:clamp(26px,7vw,34px);line-height:1.4;text-align:center;margin-bottom:8px}
+.steps-sub{text-align:center;color:var(--muted);font-size:15px;margin-bottom:36px}
+.step{position:relative;padding:0 0 44px 58px}
+.step::before{content:"";position:absolute;left:21px;top:46px;bottom:6px;width:2px;background:linear-gradient(var(--gold-soft),transparent)}
+.step:last-child::before{display:none}
+.num{position:absolute;left:0;top:0;width:44px;height:44px;border-radius:14px;transform:rotate(45deg) scale(.4);opacity:0;display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.35);transition:transform .6s cubic-bezier(.3,1.5,.5,1),opacity .4s}
+.num span{transform:rotate(-45deg);color:#fff;font-weight:900;font-size:19px}
+.step.in .num{transform:rotate(45deg) scale(1);opacity:1}
+.n1{background:var(--ruby)}.n2{background:var(--amethyst)}.n3{background:var(--sapphire)}.n4{background:var(--emerald)}
+.step h3{font-size:20px;font-weight:900;line-height:1.5;margin:6px 0 10px}
+.step p{font-size:15.5px}
+.step .body{opacity:0;transform:translateY(10px);transition:opacity .6s .15s,transform .6s .15s}
+.step.in .body{opacity:1;transform:none}
+
+.search{margin:16px 0 4px;background:#fff;border:1.5px solid #E6DCC6;border-radius:999px;padding:10px 16px;display:flex;gap:10px;align-items:center;font-weight:700}
+.search svg{flex:none}
+.search-text{min-height:1.5em}
+.checks{list-style:none;margin:16px 0 0;display:grid;gap:10px}
+.checks li{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:12px 14px;border:1px solid #EFE5CF;font-size:15px;line-height:1.6}
+.tick{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #DCCCA6;display:grid;place-items:center;margin-top:1px;transition:background .3s,border-color .3s}
+.tick svg{opacity:0;transition:opacity .3s}
+.checks li.on .tick{background:var(--emerald);border-color:var(--emerald)}
+.checks li.on .tick svg{opacity:1}
+.verdict{margin-top:14px;padding:14px 16px;border-radius:14px;background:linear-gradient(120deg,#FFF5DA,#FBEAF0);font-weight:700;font-size:15px}
+
+.prompt{margin-top:16px;border-radius:18px;overflow:hidden;border:1.5px solid var(--gold-soft);background:#fff}
+.prompt-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 10px 10px 16px;background:linear-gradient(90deg,#FFF4D6,#FFFBF3)}
+.prompt-top strong{font-size:14px;color:var(--gold-deep)}
+.copy{appearance:none;border:0;cursor:pointer;background:var(--ink);color:#fff;font-family:inherit;font-weight:700;font-size:14px;padding:9px 16px;border-radius:999px;min-width:118px;transition:background .25s}
+.copy.done{background:var(--emerald)}
+.copy:focus-visible{outline:3px solid var(--sapphire);outline-offset:2px}
+.prompt pre{white-space:pre-wrap;word-break:break-word;font-family:var(--sans);font-size:14px;line-height:1.75;padding:14px 16px 16px;max-height:260px;overflow:auto;color:#3E3446}
+.hint{font-size:13.5px;color:var(--muted);margin-top:10px}
+.flow{list-style:none;margin:16px 0 4px;display:grid;gap:8px;counter-reset:none}
+.flow li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #EFE5CF;border-radius:14px;padding:10px 14px;font-size:14.5px;line-height:1.55}
+.flow li span{flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--sapphire),var(--amethyst));color:#fff;font-weight:900;font-size:13px;display:grid;place-items:center}
+.flow li{opacity:0}
+.step.in .flow li{animation:pop .45s cubic-bezier(.3,1.4,.5,1) both}
+.step.in .flow li:nth-child(1){animation-delay:0.30s}
+.step.in .flow li:nth-child(2){animation-delay:0.42s}
+.step.in .flow li:nth-child(3){animation-delay:0.54s}
+.step.in .flow li:nth-child(4){animation-delay:0.66s}
+.step.in .flow li:nth-child(5){animation-delay:0.78s}
+.step.in .flow li:nth-child(6){animation-delay:0.90s}
+.step.in .flow li:nth-child(7){animation-delay:1.02s}
+.spec{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.spec div{background:#fff;border:1px solid #EFE5CF;border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.5}
+.spec b{display:block;font-size:15px;color:var(--emerald)}
+
+/* me */
+.me{padding:30px 0 56px}
+.me-card{background:linear-gradient(150deg,#5E3A94,#3C2166);color:#fff;border-radius:28px;padding:30px 24px;position:relative;overflow:hidden}
+.me-card::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(245,217,138,.45),transparent 70%)}
+.me-card h2{font-family:var(--serif);font-weight:800;font-size:clamp(22px,6vw,28px);line-height:1.5;margin-bottom:14px;position:relative}
+.me-card p{font-size:15.5px;opacity:.93;position:relative}
+.me-card p+p{margin-top:12px}
+
+/* CTA (fixed template) */
+.cta-wrap{padding:0 0 70px}
+.cta{border:1.5px solid #A8873A;border-radius:34px;background:linear-gradient(#F0EADF,#FBF9F4);padding:34px 20px 30px}
+.cta-free{text-align:center;color:#8C6F2A;font-size:15px;letter-spacing:.1em;margin-bottom:16px}
+.cta img{border-radius:22px;border:1.5px solid #E2D6B6}
+.cta-lead{color:#6A5E52;font-size:15.5px;line-height:2;margin:22px 4px}
+.cta-h{font-family:var(--serif);font-weight:800;font-size:clamp(22px,6vw,28px);text-align:center;line-height:1.55;margin:28px 0 16px;color:#2E2620}
+.cta-sub{text-align:center;color:#6A5E52;font-size:15px;line-height:1.9;margin-bottom:24px}
+.cta-btn{display:block;text-align:center;text-decoration:none;background:#9A7B2F;color:#fff;font-weight:900;font-size:18px;padding:20px 12px;border-radius:999px;box-shadow:0 12px 24px -12px rgba(122,94,30,.8);position:relative;overflow:hidden;animation:nudge 2.6s ease-in-out infinite}
+.cta-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.4) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3s ease-in-out infinite}
+.cta-btn:focus-visible{outline:3px solid var(--sapphire);outline-offset:3px}
+@keyframes nudge{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.cta-note{text-align:center;color:#8A7F72;font-size:13.5px;margin-top:16px;line-height:1.8}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hero-title .line,.gift,.reveal,.step .body,.num,.crowd div,.flow li{opacity:1!important;transform:none!important}
+  .num{transform:rotate(45deg)!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="progress-track"><div class="progress-bar" id="bar"></div></div></div>
+
+<header class="hero">
+  <div class="hero-img"><img src="img/stamp-niche/hero.webp" alt="電気工事士向けの現場スタンプ16種類"></div>
+  <div class="wrap hero-copy">
+    <span class="hero-kicker">2026年版</span>
+    <h1 class="hero-title"><span class="line">ライバルがほぼいない</span><span class="line">LINEスタンプ穴場市場</span><span class="line">の見つけ方</span></h1>
+    <div class="gift">
+      <p>このページで受け取れるもの</p>
+      <ul>
+        <li><i class="gem g-ruby"></i>売れにくい市場と、穴場市場の違い</li>
+        <li><i class="gem g-sap"></i>ライバルが少ないジャンルの見分け方</li>
+        <li><i class="gem g-em"></i>コピペで使えるプロンプト2つ</li>
+        <li><i class="gem g-am"></i>作ってから出品するまでの流れ</li>
+      </ul>
+    </div>
+    <div class="scroll-hint">下へスクロール<span></span></div>
+  </div>
+</header>
+
+<style>
+.lc-wrap{max-width:560px;margin:20px auto;padding:0 16px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+.lc-card{background:#fff;color:#222;border:1.5px solid #d4b160;border-radius:16px;padding:18px 16px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.08);box-sizing:border-box}
+.lc-img{display:block;width:100%;height:auto;border-radius:10px;margin:0 0 14px}
+.lc-title{margin:0 0 8px;font-size:1.05rem;font-weight:800;line-height:1.5;color:#222}
+.lc-text{margin:0 0 14px;font-size:.9rem;line-height:1.7;color:#444}
+.lc-btn{display:block;background:#06c755;color:#fff!important;text-decoration:none!important;font-weight:800;font-size:1rem;padding:14px 12px;border-radius:999px;line-height:1.4}
+</style><div class="lc-wrap"><div class="lc-card"><img class="lc-img" src="img/common/textbook-cover.webp" alt="AIマネタイズの教科書"><p class="lc-title">AIで在宅ワークを始めたい方へ</p><p class="lc-text">始め方を1冊にまとめた『AIマネタイズの教科書』を、公式LINEで無料でお渡ししています。</p><a class="lc-btn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener">公式LINEで無料で受け取る</a></div></div>
+<section class="panel p-ruby" data-watch>
+  <div class="wrap">
+    <div class="goldline"></div>
+    <h2>可愛い動物の挨拶スタンプは、埋もれやすい</h2>
+    <p>可愛いスタンプがダメなわけではありません。ただ「おはよう」「ありがとう」のような定番の挨拶は、同じようなスタンプが山ほど並んでいます。</p>
+    <div class="crowd" id="crowd"></div>
+    <p class="crowd-note">これだけ似たものが並ぶと、あなたのスタンプを選ぶ理由がなくなってしまいます。</p>
+  </div>
+</section>
+
+<section class="panel p-emerald">
+  <div class="wrap">
+    <div class="goldline"></div>
+    <h2>狙うのは「自分の仕事でよく使う言葉」</h2>
+    <p>毎日、職場のLINEで同じ言葉を打っていませんか。その言葉をスタンプにしたい人は、同じ仕事をしている人の数だけいます。</p>
+    <div class="rotator" aria-live="polite">
+      <div class="rot-job" id="rotJob"></div>
+      <div class="rot-bubble"><span id="rotText"></span><span class="caret"></span></div>
+      <p class="rot-foot">仕事ごとに、その人たちだけが毎日使う言葉があります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel p-sapphire" data-watch id="countSec">
+  <div class="wrap">
+    <div class="goldline"></div>
+    <h2>実際、こういうスタンプは買われています</h2>
+    <p>動画で紹介したスタンプは、手に取りやすい価格帯で、評価がこれだけついていました。</p>
+    <div class="count-box">
+      <div class="count" id="count">0</div>
+      <div class="count-unit">件の評価</div>
+      <div class="stars" aria-hidden="true">★★★★★</div>
+    </div>
+    <div class="memo">評価をつけるのは、買った人のうちの一部です。評価の数が多いほど、その言葉を欲しがっている人が多いという目安になります。</div>
+  </div>
+</section>
+
+<div class="lc-wrap"><div class="lc-card"><p class="lc-title">ここから先で、止まりそうな方へ</p><p class="lc-text">1人で進めるのが不安な方は、公式LINEで教科書を受け取ってください。</p><a class="lc-btn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener">公式LINEで無料で受け取る</a></div></div>
+<section class="steps">
+  <div class="wrap">
+    <h2 class="steps-head reveal">やり方は3ステップ</h2>
+    <p class="steps-sub reveal">特別なスキルはいりません</p>
+
+    <div class="step" data-step="1">
+      <div class="num n1"><span>1</span></div>
+      <div class="body">
+        <h3>LINE STOREで、仕事でよく使う言葉を検索する</h3>
+        <p>スタンプの検索窓に、あなたの仕事でよく使うフレーズを入れてみます。</p>
+        <div class="search" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A7A2E" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span class="search-text" id="searchText"></span><span class="caret"></span>
+        </div>
+        <p class="hint">言葉が思いつかないときは、このプロンプトでChatGPTに出してもらえます。</p>
+        <div class="prompt">
+          <div class="prompt-top"><strong>検索ワードを出すプロンプト</strong><button class="copy" data-copy="p1">コピーする</button></div>
+<pre id="p1">私の仕事は【ここに仕事を入れる：例 電気工事士】です。
+
+LINE STOREでスタンプを探すための検索ワードを出したいです。
+この仕事の人が、職場のLINEや同僚・取引先とのやりとりでよく使う言葉を20個、短い検索ワードの形で出してください。
+
+条件
+・「おはよう」「ありがとう」などの一般的な挨拶ではなく、この仕事ならではの言葉を優先する
+・業界の言い回し、報告のひとこと、現場や職場でのお決まりのフレーズを混ぜる
+・1つ10文字以内</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2" id="step2">
+      <div class="num n2"><span>2</span></div>
+      <div class="body">
+        <h3>ライバルが少ないジャンルを見つける</h3>
+        <p>検索結果を見て、この3つがそろっていれば穴場です。</p>
+        <ul class="checks" id="checks">
+          <li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><span>評価がついているスタンプがある<br><small style="color:var(--muted)">欲しい人がいる証拠です</small></span></li>
+          <li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><span>検索結果に出てくるスタンプの数が少ない<br><small style="color:var(--muted)">並んでも埋もれにくくなります</small></span></li>
+          <li><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><span>上位のスタンプに「自分ならこうする」と思える点がある<br><small style="color:var(--muted)">絵柄が古い、言葉が足りないなど</small></span></li>
+        </ul>
+        <div class="verdict">欲しい人はいるのに、作っている人が少ない。そこが穴場市場です。</div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3">
+      <div class="num n3"><span>3</span></div>
+      <div class="body">
+        <h3>プロンプトを1つ送って、ChatGPTの質問に答えるだけ</h3>
+        <p>ジャンルが決まったら、このプロンプトをChatGPTに送ります。あとはChatGPTが順番に確認してくるので、答えていくだけでスタンプ16個と出品用の文章まで完成します。</p>
+        <ol class="flow">
+          <li><span>1</span>職業を1語で伝える</li>
+          <li><span>2</span>現場で実際に使われている言葉から、文言16個の候補が届く</li>
+          <li><span>3</span>文言を確認・修正する</li>
+          <li><span>4</span>デザイン3案（人物・動物・文字メイン）から選ぶ</li>
+          <li><span>5</span>基準になる画像1枚を確認する</li>
+          <li><span>6</span>画像16枚が8枚ずつ届く</li>
+          <li><span>7</span>出品用のタイトル・説明文・タグ案が届く</li>
+        </ol>
+        <div class="prompt">
+          <div class="prompt-top"><strong>スタンプ作成プロンプト</strong><button class="copy" data-copy="p2">コピーする</button></div>
+<pre id="p2">【ここに職業を1語で入れる：例 建設業】
+
+あなたはこの会話で、特定の職業・現場の仲間が毎日のLINEで
+使いやすい静止スタンプ16個と、出品用の文章を完成させる担当です。
+
+【進め方】
+1. 対象の職業・現場を1語で受け取る
+2. その現場で実際に使われている言葉をWebで調査し、16個の文言候補を出す
+   （想像だけで作らず、実際の発言・投稿を確認してから選ぶこと）
+3. 一覧を提示し、確認・修正を受ける
+4. 確定した文言をもとに、デザイン3案（人物/動物/文字メイン）を提示
+5. 選ばれた案の基準画像を1枚提示
+6. 基準画像の確認が取れたら、01〜08の画像8枚を生成
+7. 続けて09〜16の画像8枚を生成
+8. 最後に、出品用のタイトル案・説明文・タグ候補をまとめる
+
+【文言の方針】
+・短く、誰に送るか／どんな場面かが一瞬で分かる言葉を優先する
+・挨拶や感謝などの一般的な言葉も混ぜてよい
+・弱音や愚痴も普段使いの用途として扱い、無理に前向きに書き換えない
+・侮辱や個人攻撃になる言葉は採用しない
+
+【画像の方針】
+・文字入り・背景透過PNG、1種類につき1枚、計16枚
+・同じ表情・同じ姿勢を16個続けない
+・文字や輪郭が枠で切れないよう余白を確保する
+
+対象職業がまだ分かっていなければ、
+「作りたい職業や現場を1語で送ってください」と聞いてから始めてください。</pre>
+        </div>
+        <p class="hint">1行目の【　】を、ステップ1で決めた職業に書き換えてから送ってください。</p>
+        <div class="spec">
+          <div><b>16個</b>このプロンプトで作る個数。LINEは8個単位で出品できます</div>
+          <div><b>370×320px以内</b>スタンプ1個のサイズ</div>
+          <div><b>背景は透明</b>PNG形式で用意します</div>
+          <div><b>一番安い価格</b>出品時に選ぶだけです</div>
+        </div>
+        <p class="hint">出品はLINE Creators Marketから行います。画像のサイズや審査の決まりは変わることがあるので、出品前に公式のガイドラインで最新の内容を確認してください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="me">
+  <div class="wrap reveal">
+    <div class="me-card">
+      <h2>現場で毎日工具を握っている僕でも、同じやり方でできました</h2>
+      <p>このページの一番上のスタンプは、電気工事士の僕が、現場で本当に使っている言葉で作ったものです。</p>
+      <p>現場でもデスクでも、毎日口にしている言葉は必ずあります。それがそのまま、ライバルの少ない商品のネタになります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-wrap">
+  <div class="wrap">
+    <style>
+.shv-box{box-sizing:border-box;max-width:520px;margin:28px auto !important;padding:20px 14px 18px;background:#FFFBF2;border:1px solid #E8C06A;border-radius:16px;text-align:center !important;box-shadow:0 6px 18px rgba(0,0,0,.10);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;line-height:1.7;position:relative;z-index:1}
+.shv-box p.shv-title{margin:0 0 6px !important;padding:0;font-size:16px !important;font-weight:700;color:#1B1630 !important;letter-spacing:.02em;text-align:center !important;max-width:none}
+.shv-box p.shv-text{margin:0 0 14px !important;padding:0;font-size:14px !important;color:#5E5873 !important;text-align:center !important;max-width:none}
+.shv-box p span{display:inline-block}
+.shv-box a.shv-btn{display:inline-block !important;padding:12px 32px !important;border-radius:999px !important;border:2px solid #B98A2E !important;color:#7A5A16 !important;background:#FFFFFF !important;font-weight:700 !important;font-size:15px !important;text-decoration:none !important;box-shadow:none !important;animation:none !important;transform:none !important;width:auto !important}
+</style>
+<div class="shv-box">
+  <p class="shv-title"><span>▶ 動画でも、</span><span>お話ししています</span></p>
+  <p class="shv-text"><span>本業がある人が、</span><span>止まらずに進める方法を</span><br><span>約5分半の動画に</span><span>まとめました。</span></p>
+  <a class="shv-btn" href="https://shou-s.github.io/siru/video.html" target="_blank" rel="noopener">動画を見る</a>
+</div>
+<div class="cta reveal">
+      <p class="cta-free">完全無料</p>
+      <img src="img/common/textbook-cover.webp" alt="電気工事士がゼロから始めたAIマネタイズの教科書">
+      <p class="cta-lead">本気で今の働き方を変えたい方には、個別のロードマップ作成会もご案内しています。僕自身、このロードマップの通りに進めて、2ヶ月目から収益の柱ができました。</p>
+      <img src="img/common/textbook-contents.webp" alt="教科書の目次：第1章 いま一番始めやすいAIマネタイズ手法、第2章 ChatGPT収益化プロンプト3選、第3章 AIマネタイズ神テンプレート、第4章 マネタイズのための生成AIツール3選、第5章 収益を生むリアル事例、最終章 特別特典">
+      <h2 class="cta-h">今だけ、公式LINEで<br>無料プレゼント中です</h2>
+      <p class="cta-sub">今回のLINEスタンプの穴場市場の見つけ方は、その中のほんの一部。全体の流れを1冊にまとめています。</p>
+      <a class="cta-btn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener">公式LINEで無料で受け取る</a>
+      <p class="cta-note">※ 配布は期間限定となります。お早めにお受け取りください</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // progress bar
+  var bar = document.getElementById('bar');
+  function prog(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? Math.min(100, window.scrollY / h * 100) : 0) + '%';
+  }
+  window.addEventListener('scroll', prog, {passive:true}); prog();
+
+  // crowd tiles
+  var crowd = document.getElementById('crowd');
+  var animals = ['🐰','🐻','🐱','🐶','🐥','🐼','🦊','🐹'];
+  var words = ['おはよう','ありがとう','おやすみ','了解','よろしく'];
+  for (var i = 0; i < 20; i++){
+    var d = document.createElement('div');
+    d.innerHTML = '<b>' + animals[i % animals.length] + '</b>' + words[i % words.length];
+    d.style.animationDelay = (i * 0.06) + 's';
+    crowd.appendChild(d);
+  }
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        e.target.classList.add('in');
+        if (e.target.id === 'countSec') runCount();
+        if (e.target.id === 'step2') runChecks();
+        if (e.target.dataset.step === '1') runSearch();
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.25});
+  document.querySelectorAll('.reveal,[data-watch],.step').forEach(function(el){ io.observe(el); });
+
+  // counter
+  function runCount(){
+    var el = document.getElementById('count'), target = 1529;
+    if (reduce){ el.textContent = target.toLocaleString(); return; }
+    var start = null;
+    function step(t){
+      if (!start) start = t;
+      var p = Math.min(1, (t - start) / 1800);
+      var v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      el.textContent = v.toLocaleString();
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // checklist
+  function runChecks(){
+    var items = document.querySelectorAll('#checks li');
+    items.forEach(function(li, i){ setTimeout(function(){ li.classList.add('on'); }, reduce ? 0 : 500 + i * 700); });
+  }
+
+  // typing helper
+  function typeLoop(el, list, onEach){
+    var i = 0;
+    function next(){
+      var s = list[i % list.length];
+      if (onEach) onEach(i % list.length);
+      if (reduce){ el.textContent = s; i++; setTimeout(next, 2600); return; }
+      var n = 0;
+      (function t(){
+        el.textContent = s.slice(0, n);
+        if (n++ < s.length){ setTimeout(t, 110); }
+        else { setTimeout(function(){ i++; next(); }, 1700); }
+      })();
+    }
+    next();
+  }
+
+  // search box
+  var searched = false;
+  function runSearch(){
+    if (searched) return; searched = true;
+    typeLoop(document.getElementById('searchText'), ['確認ヨシ','ご安全に','段取りOK','雨で中止']);
+  }
+
+  // job phrase rotator
+  var jobs = [
+    ['電気工事士','確認ヨシ！'],
+    ['看護師','申し送りお願いします'],
+    ['美容師','次のお客様入ります'],
+    ['事務職','ご確認お願いします'],
+    ['保育士','お迎え来ました'],
+    ['運送ドライバー','積み込み完了！'],
+    ['営業職','本日直帰します']
+  ];
+  var jobEl = document.getElementById('rotJob');
+  typeLoop(document.getElementById('rotText'), jobs.map(function(j){ return j[1]; }), function(k){ jobEl.textContent = jobs[k][0] + 'なら'; });
+
+  // copy buttons
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = document.getElementById(btn.dataset.copy).textContent;
+      function ok(){
+        btn.textContent = 'コピーしました'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = 'コピーする'; btn.classList.remove('done'); }, 2000);
+      }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); ok(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(ok, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
