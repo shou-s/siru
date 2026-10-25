@@ -127,6 +127,18 @@ img{max-width:100%;display:block}
 .copy:focus-visible{outline:3px solid var(--sapphire);outline-offset:2px}
 .prompt pre{white-space:pre-wrap;word-break:break-word;font-family:var(--sans);font-size:14px;line-height:1.75;padding:14px 16px 16px;max-height:260px;overflow:auto;color:#3E3446}
 .hint{font-size:13.5px;color:var(--muted);margin-top:10px}
+.flow{list-style:none;margin:16px 0 4px;display:grid;gap:8px;counter-reset:none}
+.flow li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #EFE5CF;border-radius:14px;padding:10px 14px;font-size:14.5px;line-height:1.55}
+.flow li span{flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--sapphire),var(--amethyst));color:#fff;font-weight:900;font-size:13px;display:grid;place-items:center}
+.flow li{opacity:0}
+.step.in .flow li{animation:pop .45s cubic-bezier(.3,1.4,.5,1) both}
+.step.in .flow li:nth-child(1){animation-delay:0.30s}
+.step.in .flow li:nth-child(2){animation-delay:0.42s}
+.step.in .flow li:nth-child(3){animation-delay:0.54s}
+.step.in .flow li:nth-child(4){animation-delay:0.66s}
+.step.in .flow li:nth-child(5){animation-delay:0.78s}
+.step.in .flow li:nth-child(6){animation-delay:0.90s}
+.step.in .flow li:nth-child(7){animation-delay:1.02s}
 .spec{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .spec div{background:#fff;border:1px solid #EFE5CF;border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.5}
 .spec b{display:block;font-size:15px;color:var(--emerald)}
@@ -159,7 +171,7 @@ img{max-width:100%;display:block}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .hero-title .line,.gift,.reveal,.step .body,.num,.crowd div{opacity:1!important;transform:none!important}
+  .hero-title .line,.gift,.reveal,.step .body,.num,.crowd div,.flow li{opacity:1!important;transform:none!important}
   .num{transform:rotate(45deg)!important}
 }
 </style>
@@ -179,7 +191,7 @@ img{max-width:100%;display:block}
       <ul>
         <li><i class="gem g-ruby"></i>売れにくい市場と、穴場市場の違い</li>
         <li><i class="gem g-sap"></i>ライバルが少ないジャンルの見分け方</li>
-        <li><i class="gem g-em"></i>コピペで使えるプロンプト3つ</li>
+        <li><i class="gem g-em"></i>コピペで使えるプロンプト2つ</li>
         <li><i class="gem g-am"></i>作ってから出品するまでの流れ</li>
       </ul>
     </div>
@@ -235,7 +247,7 @@ img{max-width:100%;display:block}
 <div class="lc-wrap"><div class="lc-card"><p class="lc-title">ここから先で、止まりそうな方へ</p><p class="lc-text">1人で進めるのが不安な方は、公式LINEで教科書を受け取ってください。</p><a class="lc-btn" href="https://utage-system.com/line/open/fgm8BuGtakAp?mtid=f0WFx4w17zIF" target="_blank" rel="noopener">公式LINEで無料で受け取る</a></div></div>
 <section class="steps">
   <div class="wrap">
-    <h2 class="steps-head reveal">やり方は4ステップ</h2>
+    <h2 class="steps-head reveal">やり方は3ステップ</h2>
     <p class="steps-sub reveal">特別なスキルはいりません</p>
 
     <div class="step" data-step="1">
@@ -280,50 +292,52 @@ LINE STOREでスタンプを探すための検索ワードを出したいです�
     <div class="step" data-step="3">
       <div class="num n3"><span>3</span></div>
       <div class="body">
-        <h3>ChatGPTでセリフのバリエーションを出す</h3>
-        <p>ジャンルが決まったら、スタンプに入れるセリフをまとめて出してもらいます。表情やポーズの案も一緒に出るので、そのまま次の作業に使えます。</p>
+        <h3>プロンプトを1つ送って、ChatGPTの質問に答えるだけ</h3>
+        <p>ジャンルが決まったら、このプロンプトをChatGPTに送ります。あとはChatGPTが順番に確認してくるので、答えていくだけでスタンプ16個と出品用の文章まで完成します。</p>
+        <ol class="flow">
+          <li><span>1</span>職業を1語で伝える</li>
+          <li><span>2</span>現場で実際に使われている言葉から、文言16個の候補が届く</li>
+          <li><span>3</span>文言を確認・修正する</li>
+          <li><span>4</span>デザイン3案（人物・動物・文字メイン）から選ぶ</li>
+          <li><span>5</span>基準になる画像1枚を確認する</li>
+          <li><span>6</span>画像16枚が8枚ずつ届く</li>
+          <li><span>7</span>出品用のタイトル・説明文・タグ案が届く</li>
+        </ol>
         <div class="prompt">
-          <div class="prompt-top"><strong>セリフを出すプロンプト</strong><button class="copy" data-copy="p2">コピーする</button></div>
-<pre id="p2">あなたはLINEスタンプの企画担当です。
+          <div class="prompt-top"><strong>スタンプ作成プロンプト</strong><button class="copy" data-copy="p2">コピーする</button></div>
+<pre id="p2">【ここに職業を1語で入れる：例 建設業】
 
-私の仕事：【ここに仕事を入れる：例 電気工事士】
-狙うジャンル：【ステップ2で見つけたジャンル：例 現場のあいさつ・報告】
+あなたはこの会話で、特定の職業・現場の仲間が毎日のLINEで
+使いやすい静止スタンプ16個と、出品用の文章を完成させる担当です。
 
-この仕事の人が、職場のLINEグループや同僚・取引先とのやりとりで毎日のように使う言葉を40個出してください。
+【進め方】
+1. 対象の職業・現場を1語で受け取る
+2. その現場で実際に使われている言葉をWebで調査し、16個の文言候補を出す
+   （想像だけで作らず、実際の発言・投稿を確認してから選ぶこと）
+3. 一覧を提示し、確認・修正を受ける
+4. 確定した文言をもとに、デザイン3案（人物/動物/文字メイン）を提示
+5. 選ばれた案の基準画像を1枚提示
+6. 基準画像の確認が取れたら、01〜08の画像8枚を生成
+7. 続けて09〜16の画像8枚を生成
+8. 最後に、出品用のタイトル案・説明文・タグ候補をまとめる
 
-条件
-・「おはよう」「ありがとう」だけの一般的な挨拶ではなく、この仕事ならではの言い回しを優先する
-・スタンプの文字として読みやすいよう、1つ10文字前後にする
-・「あいさつ」「報告」「返事」「お礼・ねぎらい」「天気・体調」「一日の締め」に分けて出す
-・それぞれに、キャラクターの表情とポーズの案をひとことずつ添える
+【文言の方針】
+・短く、誰に送るか／どんな場面かが一瞬で分かる言葉を優先する
+・挨拶や感謝などの一般的な言葉も混ぜてよい
+・弱音や愚痴も普段使いの用途として扱い、無理に前向きに書き換えない
+・侮辱や個人攻撃になる言葉は採用しない
 
-最後に、この中から16個を選ぶならどれか、実際に使う回数が多そうな順に並べてください。</pre>
+【画像の方針】
+・文字入り・背景透過PNG、1種類につき1枚、計16枚
+・同じ表情・同じ姿勢を16個続けない
+・文字や輪郭が枠で切れないよう余白を確保する
+
+対象職業がまだ分かっていなければ、
+「作りたい職業や現場を1語で送ってください」と聞いてから始めてください。</pre>
         </div>
-      </div>
-    </div>
-
-    <div class="step" data-step="4">
-      <div class="num n4"><span>4</span></div>
-      <div class="body">
-        <h3>スタンプを作って、最低価格で出品する</h3>
-        <p>セリフが決まったら画像を作ります。画像生成AIに、1枚ずつこのプロンプトで頼むだけです。2枚目からは1枚目の画像を添付して「このキャラクターで」と伝えると、同じ見た目でそろえやすくなります。</p>
-        <div class="prompt">
-          <div class="prompt-top"><strong>スタンプ画像のプロンプト</strong><button class="copy" data-copy="p3">コピーする</button></div>
-<pre id="p3">LINEスタンプ用のイラストを1枚作ってください。
-
-キャラクター：【例：黄色いヘルメットをかぶった若い電気工事士の男性】
-セリフ：【例：確認ヨシ！】
-表情とポーズ：【例：自信のある笑顔で指差し確認をしている】
-
-スタイル
-・太めの線で描いた、元気なアニメ調のイラスト
-・セリフは白いフチ取りのある、手書き風の大きな文字
-・キャラクターと文字が画面いっぱいに収まる構図
-・スマホで小さく表示しても、文字と表情がはっきり分かること
-・背景は透明（難しければ真っ白の単色）</pre>
-        </div>
+        <p class="hint">1行目の【　】を、ステップ1で決めた職業に書き換えてから送ってください。</p>
         <div class="spec">
-          <div><b>8〜40個</b>1セットの個数。8個単位で選べます</div>
+          <div><b>16個</b>このプロンプトで作る個数。LINEは8個単位で出品できます</div>
           <div><b>370×320px以内</b>スタンプ1個のサイズ</div>
           <div><b>背景は透明</b>PNG形式で用意します</div>
           <div><b>一番安い価格</b>出品時に選ぶだけです</div>
